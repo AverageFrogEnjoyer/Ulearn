@@ -24,9 +24,6 @@ namespace _Game_
     {
         SplashScreen,
         Map1,
-        Map2,
-        MapFrog,
-        EndScreenDeath
     }
 
     public class Game1 : Game
@@ -34,9 +31,7 @@ namespace _Game_
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         private Player player;
-        public static GameState State = GameState.SplashScreen;
-        private SpriteFont _score;
-        private SpriteFont _bestScore;
+        public static GameState State;
 
         public Game1()
         {
@@ -54,9 +49,9 @@ namespace _Game_
             _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
             _graphics.ApplyChanges();
 
-
             Globals.Content = Content;
             Globals.IsPaused = false;
+            State = GameState.SplashScreen;
             base.Initialize();
         }
 
@@ -67,7 +62,7 @@ namespace _Game_
 
             var bulletTexture = Globals.Content.Load<Texture2D>("Ball");
             BulletManager.Init(bulletTexture);
-            InterfaceManager.Init(bulletTexture);
+            InterfaceManager.Init();
             Player.PlayerSprite = Content.Load<Texture2D>("Player");
             Player.DeathSprite = Content.Load<Texture2D>("PlayerDead");
 
@@ -80,8 +75,6 @@ namespace _Game_
             EnemyManager.Init();
             EnemyManager.AddEnemy();
 
-            _score = Globals.Content.Load<SpriteFont>("Score");
-            _bestScore = Globals.Content.Load<SpriteFont>("Score");
             // TODO: use this.Content to load your game content here
         }
 
@@ -92,7 +85,6 @@ namespace _Game_
                 Exit();
             Globals.Update(gameTime);
             InputManager.Update();
-
 
             switch (State)
             {
@@ -112,13 +104,6 @@ namespace _Game_
                         Restart();
                     }
                     break;
-                case GameState.Map2:
-                    break;
-                case GameState.MapFrog:
-                    break;
-                case GameState.EndScreenDeath:
-                    break;
-
             }
             // TODO: Add your update logic here
 
@@ -144,30 +129,15 @@ namespace _Game_
                     Splashscreen.Draw(spriteBatch);
                     break;
                 case GameState.Map1:
-
                     Map1.Draw(spriteBatch);
                     BulletManager.Draw();
                     EnemyManager.Draw();
                     player.Draw();
                     InterfaceManager.Draw(player);
-                    const int fontY = 10;
-                    var fontX = Globals.Bounds.X / 2 - 50;
-                    Globals.SpriteBatch.DrawString(_score, $"Score: {Player.Score}", new Vector2(fontX, fontY), Color.White);
-                    Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {Player.BestScore}", new Vector2(fontX - 35, fontY + 45), Color.White);
                     if (Player.IsDead)
                         spriteBatch.Draw(GameOver.Sprite, new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2, (Globals.Bounds.Y - GameOver.Sprite.Height) / 2), null, Color.White * 0.9f, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-
-                    break;
-                case GameState.Map2:
-                    break;
-                case GameState.MapFrog:
-                    break;
-                case GameState.EndScreenDeath:
-                    //spriteBatch.Draw(GameOver.Sprite, new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2, (Globals.Bounds.Y - GameOver.Sprite.Height) / 2), null, Color.White * 0.05f, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-                    //EndScreenDeath.Draw(spriteBatch);
                     break;
             }
-
             spriteBatch.End();
             base.Draw(gameTime);
         }
