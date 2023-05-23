@@ -13,9 +13,9 @@ namespace _Game_.Entities
     public class Enemy : Sprite
     {
         public int HP { get; set; }
-        public Enemy(Texture2D tex, Vector2 pos) : base(tex, pos)
+        public Enemy(Texture2D tex, Vector2 pos, int speed) : base(tex, pos)
         {
-            Speed = 150;
+            Speed = speed;
             HP = 3;
         }
 

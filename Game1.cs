@@ -8,12 +8,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1;
+using static System.Formats.Asn1.AsnWriter;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 
 //Score
 //Exp
 //Bushes to destroy
+//damage power up
+//ulta eve
 
 namespace _Game_
 {
@@ -32,6 +35,8 @@ namespace _Game_
         private SpriteBatch spriteBatch;
         private Player player;
         public static GameState State = GameState.SplashScreen;
+        private SpriteFont _score;
+        private SpriteFont _bestScore;
 
         public Game1()
         {
@@ -49,8 +54,9 @@ namespace _Game_
             _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
             _graphics.ApplyChanges();
 
-            
+
             Globals.Content = Content;
+            Globals.IsPaused = false;
             base.Initialize();
         }
 
@@ -58,7 +64,7 @@ namespace _Game_
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = spriteBatch;
-            
+
             var bulletTexture = Globals.Content.Load<Texture2D>("Ball");
             BulletManager.Init(bulletTexture);
             InterfaceManager.Init(bulletTexture);
@@ -73,6 +79,9 @@ namespace _Game_
             player = new(Content.Load<Texture2D>("Player"), new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
             EnemyManager.Init();
             EnemyManager.AddEnemy();
+
+            _score = Globals.Content.Load<SpriteFont>("Score");
+            _bestScore = Globals.Content.Load<SpriteFont>("Score");
             // TODO: use this.Content to load your game content here
         }
 
@@ -83,7 +92,7 @@ namespace _Game_
                 Exit();
             Globals.Update(gameTime);
             InputManager.Update();
-            
+
 
             switch (State)
             {
@@ -92,6 +101,8 @@ namespace _Game_
                         State = GameState.Map1;
                     break;
                 case GameState.Map1:
+                    if (Globals.IsPaused)
+                        break;
                     BulletManager.Update(EnemyManager.Enemies);
                     player.Update(EnemyManager.Enemies);
                     EnemyManager.Update(player);
@@ -133,12 +144,17 @@ namespace _Game_
                     Splashscreen.Draw(spriteBatch);
                     break;
                 case GameState.Map1:
+
                     Map1.Draw(spriteBatch);
-                    BulletManager.Draw();                    
+                    BulletManager.Draw();
                     EnemyManager.Draw();
                     player.Draw();
                     InterfaceManager.Draw(player);
-                    if (Player.Dead)
+                    const int fontY = 10;
+                    var fontX = Globals.Bounds.X / 2 - 50;
+                    Globals.SpriteBatch.DrawString(_score, $"Score: {Player.Score}", new Vector2(fontX, fontY), Color.White);
+                    Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {Player.BestScore}", new Vector2(fontX - 35, fontY + 45), Color.White);
+                    if (Player.IsDead)
                         spriteBatch.Draw(GameOver.Sprite, new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2, (Globals.Bounds.Y - GameOver.Sprite.Height) / 2), null, Color.White * 0.9f, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
                     break;
@@ -151,7 +167,7 @@ namespace _Game_
                     //EndScreenDeath.Draw(spriteBatch);
                     break;
             }
-            
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

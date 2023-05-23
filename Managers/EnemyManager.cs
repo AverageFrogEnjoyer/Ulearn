@@ -19,6 +19,7 @@ namespace _Game_.Managers
         private static float spawnTime;
         private static Random random;
         private static int padding;
+        public static int speed = 150;
 
         public static void Init()
         {
@@ -54,7 +55,10 @@ namespace _Game_.Managers
         public static void AddEnemy()
         {
             if (Enemies.Count < 4)
-                Enemies.Add(new(texture, GetRandomPosition()));
+            {
+                speed += 4;
+                Enemies.Add(new(texture, GetRandomPosition(), speed));
+            }
         }
 
         public static void Update(Player player)

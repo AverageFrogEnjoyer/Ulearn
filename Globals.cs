@@ -7,6 +7,7 @@ namespace Game_
 {
     public static class Globals
     {
+        public static bool IsPaused = false;
         public static float TotalSeconds { get; set; }
         public static ContentManager Content { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }

@@ -12,37 +12,44 @@ namespace _Game_.Entities
     {
         public static Texture2D PlayerSprite { get; set; }
         public static Texture2D DeathSprite { get; set; }
-        private static Point currentFrame = new Point(0, 0);
-        private static Point spriteSize = new Point(4, 5);
+
+        private static Point currentFrame;
+        private static Point spriteSize;
         public static int frameWidth = 158;
         public static int frameHeight = 169;
-        public static Vector2 velocity = new(8f, 8f);
 
         private float cooldown;
         private float cooldownLeft;
-        public int maxAmo;
+        private int maxAmo;
         public int amo { get; set; }
-        public float reloadTime;
+        private float reloadTime;
         public bool reloading { get; set; }
-        public static bool Dead { get; /*private*/ set; }
-        public int Experience { get; private set; }
+        public static bool IsDead;
+        public static bool HasUlta;
+        public static int Score;
+        public static int BestScore;
+
         public Player(Texture2D tex, Vector2 pos) : base(tex, pos)
         {
-            Speed = 450;
+            Reset();
+        }
+
+        public void Reset()
+        {
+            Position = new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10);
+            currentFrame = new Point(0, 0);
+            spriteSize = new Point(4, 5);
+            cooldown = 0.25f;
+            cooldownLeft = 0f;
             maxAmo = 12;
             amo = maxAmo;
             reloadTime = 2f;
             reloading = false;
-            cooldown = 0.25f;
-            cooldownLeft = 0f;
-            Dead = false;
-        }
-        
-        public void Reset()
-        {
-            Dead = false;
-            Position = new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10);
-            amo = 12;
+            IsDead = false;
+            HasUlta = false;
+            Score = 0;
+            BestScore = Score;
+            Speed = 450;
         }
 
         private void Reload()
@@ -66,14 +73,9 @@ namespace _Game_.Entities
             }
             if (InputManager.Direction != Vector2.Zero)
             {
-                var dir = Vector2.Normalize(InputManager.Direction);
-                Position += dir * Speed * Globals.TotalSeconds;
-                //new(
-                //    MathHelper.Clamp(Position.X + (dir.X * Speed * Globals.TotalSeconds), 0, Globals.Bounds.X),
-                //    MathHelper.Clamp(Position.Y + (dir.Y * Speed * Globals.TotalSeconds), 0, Globals.Bounds.Y)
-                //    );
+                var direction = Vector2.Normalize(InputManager.Direction);
+                Position += direction * Speed * Globals.TotalSeconds;
             }
-
             if (InputManager.MouseLeftDown)
             {
                 Shoot();
@@ -82,47 +84,22 @@ namespace _Game_.Entities
             {
                 Reload();
             }
-            CheckDeath(enemies);
-            //if (Dead)
+            //if (InputManager.SpaceIsPressed && HasUlta)
             //{
-            //    Game1.State = GameState.EndScreenDeath;
+            //    DoUlta();
             //}
-            //var toMouse = InputManager.MousePosition - Position;
-            //Rotation = (float)Math.Atan2(toMouse.Y, toMouse.X);
+            CheckDeath(enemies);
         }
 
-        //public /*static*/ void Update()
+        //private void DoUlta()
         //{
-        //    KeyboardState keyboardState = Keyboard.GetState();
-        //    if (InputManager.MouseClicked)
+        //    UltaData ulta = new()
         //    {
-        //        Shoot();
-        //    }
-        //    if (InputManager.Direction != Vector2.Zero)
-        //    {
-        //        var dir = Vector2.Normalize(InputManager.Direction);
-        //        Position += dir * Speed * Globals.TotalSeconds;
-        //    }
-        //    //if (keyboardState.IsKeyDown(Keys.Left) ||
-        //    //    keyboardState.IsKeyDown(Keys.A))
-        //    //{
-        //    //    ChangePositionAndFrame(1);
-        //    //}
-        //    //if (keyboardState.IsKeyDown(Keys.Right) ||
-        //    //    keyboardState.IsKeyDown(Keys.D))
-        //    //{
-        //    //    ChangePositionAndFrame(2);
-        //    //}
-        //    //if (keyboardState.IsKeyDown(Keys.Up) ||
-        //    //    keyboardState.IsKeyDown(Keys.W))
-        //    //{
-        //    //    ChangePositionAndFrame(3);
-        //    //}
-        //    //if (keyboardState.IsKeyDown(Keys.Down) ||
-        //    //    keyboardState.IsKeyDown(Keys.S))
-        //    //{
-        //    //    ChangePositionAndFrame(0);
-        //    //}
+        //        Position = Position + new Vector2(frameWidth / 2, frameHeight / 2),
+        //        Rotation = Rotation,
+        //        Lifespan = 1,
+        //        Speed = 600
+        //    };
         //}
 
         public static void ChangePositionAndFrame(int row)
@@ -133,9 +110,9 @@ namespace _Game_.Entities
                 currentFrame.X = 1;
         }
 
-        public /*static*/ void Draw()
+        public void Draw()
         {
-            if (Dead)
+            if (IsDead)
             {
                 Globals.SpriteBatch.Draw(DeathSprite, Position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
             }
@@ -178,10 +155,14 @@ namespace _Game_.Entities
         {
             foreach (var enemy in enemies)
             {
-                if (enemy.HP <= 0) continue;
+                if (enemy.HP <= 0)
+                {
+                    GetExperience(1);
+                    continue;
+                }
                 if ((Position - enemy.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 50)
                 {
-                    Dead = true;
+                    IsDead = true;
                     break;
                 }
             }
@@ -189,7 +170,7 @@ namespace _Game_.Entities
 
         public void GetExperience(int exp)
         {
-            Experience += exp;
+            Score += exp;
         }
     }
 }
