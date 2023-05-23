@@ -24,7 +24,7 @@ namespace _Game_
             texture = tex;
             Position = pos;
             origin = new(tex.Width / 2, tex.Height / 2);
-            Speed = 300;
+            //Speed = 300;
             //Color = Color.White;
         }
 
