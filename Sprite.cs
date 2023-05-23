@@ -25,7 +25,6 @@ namespace _Game_
             Position = pos;
             origin = new(tex.Width / 2, tex.Height / 2);
             Speed = 300;
-            //Scale = 1f;
             //Color = Color.White;
         }
 
