@@ -23,9 +23,6 @@ namespace _Game_.GameStates
                     Globals.SpriteBatch.Draw(Sprite, new Vector2(x * 32, y * 32), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 }
             }
-            //if (Player.Dead)
-            //    spriteBatch.Draw(GameOver.Sprite, new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2, (Globals.Bounds.Y - GameOver.Sprite.Height) / 2), null, Color.White * 0.75f, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-            //spriteBatch.Draw(Sprite, Vector2.Zero, Color.White);
         }
 
 

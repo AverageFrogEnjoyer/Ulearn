@@ -27,7 +27,6 @@ namespace _Game_.Entities
         public void Update(Player player)
         {
             var toPlayer = player.Position - Position + new Vector2(Player.frameWidth / 2, Player.frameHeight / 2);
-            //Rotation = (float)Math.Atan2(toPlayer.Y, toPlayer.X);
             if (HP == 1)
             {
                 Speed = 250;

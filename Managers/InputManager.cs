@@ -21,7 +21,6 @@ namespace _Game_.Managers
         public static bool MouseRightClicked { get; private set; }
         public static bool MouseLeftDown { get; private set; }
         public static bool PauseIsPressed;
-        //public static bool SpacePressed { get; private set; }
 
         public static void Update()
         {

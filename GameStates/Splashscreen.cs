@@ -9,18 +9,7 @@ namespace _Game_.GameStates
         public static Texture2D SpriteBack { get; set; }
         public static Texture2D SpriteText1 { get; set; }
         public static Texture2D SpriteText2 { get; set; }
-        //private static int currentTime = 0;
-        //private static int period = 50;
 
-        //public static void Update(GameTime gameTime)
-        //{
-        //    currentTime += gameTime.ElapsedGameTime.Milliseconds;
-        //    if (currentTime > period)
-        //    {
-        //        currentTime -= period;
-                
-        //    }
-        //}
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(SpriteBack, Vector2.Zero, Color.White);

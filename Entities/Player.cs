@@ -84,23 +84,8 @@ namespace _Game_.Entities
             {
                 Reload();
             }
-            //if (InputManager.SpaceIsPressed && HasUlta)
-            //{
-            //    DoUlta();
-            //}
             CheckDeath(enemies);
         }
-
-        //private void DoUlta()
-        //{
-        //    UltaData ulta = new()
-        //    {
-        //        Position = Position + new Vector2(frameWidth / 2, frameHeight / 2),
-        //        Rotation = Rotation,
-        //        Lifespan = 1,
-        //        Speed = 600
-        //    };
-        //}
 
         public static void ChangePositionAndFrame(int row)
         {
