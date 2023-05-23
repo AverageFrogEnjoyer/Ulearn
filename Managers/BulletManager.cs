@@ -37,7 +37,8 @@ namespace GameShooter.Managers
                 bullet.Update();
                 foreach (var enemy in enemies)
                 {
-                    if (enemy.HP <= 0) continue;
+                    if (enemy.HP <= 0)
+                        continue;
                     if ((bullet.Position - enemy.Position).Length() < 32)
                     {
                         enemy.GetDamage(bullet.Damage);
