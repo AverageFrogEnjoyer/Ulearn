@@ -146,7 +146,8 @@ namespace _Game_.Entities
                 Position = Position + new Vector2(frameWidth / 2, frameHeight / 2),
                 Rotation = Rotation,
                 Lifespan = 1,
-                Speed = 600
+                Speed = 600,
+                Damage = 1
             };
             BulletManager.AddBullet(bulletData);
         }

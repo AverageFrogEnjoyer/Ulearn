@@ -32,16 +32,16 @@ namespace GameShooter.Managers
 
         public static void Update(List<Enemy> enemies)
         {
-            foreach (var p in Bullets)
+            foreach (var bullet in Bullets)
             {
-                p.Update();
+                bullet.Update();
                 foreach (var enemy in enemies)
                 {
                     if (enemy.HP <= 0) continue;
-                    if ((p.Position - enemy.Position).Length() < 32)
+                    if ((bullet.Position - enemy.Position).Length() < 32)
                     {
-                        enemy.GetDamage(/*p.Damage*/1);
-                        p.Destroy();
+                        enemy.GetDamage(bullet.Damage);
+                        bullet.Destroy();
                         break;
                     }
                 }
