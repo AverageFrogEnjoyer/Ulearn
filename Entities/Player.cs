@@ -12,6 +12,7 @@ namespace _Game_.Entities
     {
         public static Texture2D PlayerSprite { get; set; }
         public static Texture2D DeathSprite { get; set; }
+        public int Health;
 
         private static Point currentFrame;
         private static Point spriteSize;
@@ -50,6 +51,7 @@ namespace _Game_.Entities
             Score = 0;
             BestScore = Score;
             Speed = 450;
+            Health = 5;
         }
 
         private void Reload()

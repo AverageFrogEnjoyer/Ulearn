@@ -63,6 +63,8 @@ namespace _Game_
             var bulletTexture = Globals.Content.Load<Texture2D>("Ball");
             BulletManager.Init(bulletTexture);
             InterfaceManager.Init();
+            SwampManager.Init();
+            SwampManager.AddSwamp();
             Player.PlayerSprite = Content.Load<Texture2D>("Player");
             Player.DeathSprite = Content.Load<Texture2D>("PlayerDead");
 
@@ -96,6 +98,7 @@ namespace _Game_
                     if (Globals.IsPaused)
                         break;
                     BulletManager.Update(EnemyManager.Enemies);
+                    SwampManager.Update();
                     player.Update(EnemyManager.Enemies);
                     EnemyManager.Update(player);
                     if (keyboardState.IsKeyDown(Keys.Enter))
@@ -114,6 +117,7 @@ namespace _Game_
         {
             BulletManager.Reset();
             EnemyManager.Reset();
+            SwampManager.Reset();
             player.Reset();
         }
 
@@ -131,6 +135,7 @@ namespace _Game_
                 case GameState.Map1:
                     Map1.Draw(spriteBatch);
                     BulletManager.Draw();
+                    SwampManager.Draw();
                     EnemyManager.Draw();
                     player.Draw();
                     InterfaceManager.Draw(player);
