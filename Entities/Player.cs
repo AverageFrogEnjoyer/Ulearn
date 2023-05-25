@@ -49,8 +49,9 @@ namespace _Game_.Entities
             reloading = false;
             IsDead = false;
             HasUlta = false;
-            Score = 0;
             BestScore = Score;
+            Score = 0;
+            
             Speed = 450;
             Health = 200;
         }

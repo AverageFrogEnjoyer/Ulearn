@@ -17,6 +17,7 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 //Bushes to destroy
 //damage power up
 //ulta eve
+//BEST SCORE
 
 namespace _Game_
 {
