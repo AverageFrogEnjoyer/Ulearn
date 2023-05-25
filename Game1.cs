@@ -64,7 +64,7 @@ namespace _Game_
             BulletManager.Init(bulletTexture);
             InterfaceManager.Init();
             SwampManager.Init();
-            SwampManager.AddSwamp();
+            //SwampManager.AddSwamp();
             Player.PlayerSprite = Content.Load<Texture2D>("Player");
             Player.DeathSprite = Content.Load<Texture2D>("PlayerDead");
 
@@ -99,7 +99,7 @@ namespace _Game_
                         break;
                     BulletManager.Update(EnemyManager.Enemies);
                     SwampManager.Update();
-                    player.Update(EnemyManager.Enemies);
+                    player.Update(EnemyManager.Enemies, SwampManager.Swamps);
                     EnemyManager.Update(player);
                     if (keyboardState.IsKeyDown(Keys.Enter))
                     {

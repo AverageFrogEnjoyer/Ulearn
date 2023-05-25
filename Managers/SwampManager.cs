@@ -32,7 +32,7 @@ namespace _Game_.Managers
             //while (spawnTime <= 0)
             //{
             //    spawnTime += spawnCooldown;
-                AddSwamp();
+                //AddSwamp();
             //}
 
             //foreach (var swamp in Swamps)
@@ -40,14 +40,15 @@ namespace _Game_.Managers
             //    swamp.Update(player);
             //}
             //Enemies.RemoveAll((z) => z.HP <= 0);
-        }
-        public static void AddSwamp()
-        {
-            if (Swamps.Count < 3)
+            if (Swamps.Count < 4)
             {
                 Swamps.Add(new(texture, GetRandomPosition()));
             }
         }
+        //public static void AddSwamp()
+        //{
+            
+        //}
         public static void Draw()
         {
             foreach (var swamp in Swamps)

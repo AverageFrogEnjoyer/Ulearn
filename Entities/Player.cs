@@ -5,6 +5,7 @@ using GameShooter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System;
 
 namespace _Game_.Entities
 {
@@ -51,7 +52,7 @@ namespace _Game_.Entities
             Score = 0;
             BestScore = Score;
             Speed = 450;
-            Health = 5;
+            Health = 200;
         }
 
         private void Reload()
@@ -63,7 +64,7 @@ namespace _Game_.Entities
             amo = maxAmo;
         }
 
-        public void Update(List<Enemy> enemies)
+        public void Update(List<Enemy> enemies, List<Swamp> swamps)
         {
             if (cooldownLeft > 0)
             {
@@ -86,7 +87,9 @@ namespace _Game_.Entities
             {
                 Reload();
             }
+            CheckDrown(swamps);
             CheckDeath(enemies);
+            
         }
 
         public static void ChangePositionAndFrame(int row)
@@ -153,6 +156,22 @@ namespace _Game_.Entities
                 {
                     IsDead = true;
                     break;
+                }
+            }
+        }
+
+        private void CheckDrown(List<Swamp> swamps)
+        {
+            foreach (var swamp in swamps)
+            {
+                if ((Position - swamp.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 50)
+                {
+                    Health -= 1;
+                    if (Health <= 0)
+                    {
+                        IsDead = true;
+                        break;
+                    }
                 }
             }
         }
