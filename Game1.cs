@@ -45,6 +45,7 @@ namespace _Game_
 
             Globals.Content = Content;
             Globals.IsPaused = false;
+            
             State = GameState.SplashScreen;
 
             BulletManager.Init();
@@ -80,8 +81,9 @@ namespace _Game_
             KeyboardState keyboardState = Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            Globals.Update(gameTime);
-            InputManager.Update();
+            Globals.gameTime = gameTime;
+            Globals.Update();
+            InputManager.Update(player);
 
             switch (State)
             {
@@ -121,7 +123,7 @@ namespace _Game_
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             switch (State)
@@ -131,13 +133,15 @@ namespace _Game_
                     break;
                 case GameState.Map1:
                     Map1.Draw(spriteBatch);
-                    BulletManager.Draw();
+                    
                     SwampManager.Draw();
-                    EnemyManager.Draw();
                     HealthManager.Draw();
+                    BulletManager.Draw();
+                    EnemyManager.Draw();
+                    
                     player.Draw();
                     InterfaceManager.Draw(player);
-                    if (Player.IsDead)
+                    if (player.IsDead)
                         spriteBatch.Draw(GameOver.Sprite, new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2, (Globals.Bounds.Y - GameOver.Sprite.Height) / 2), null, Color.White * 0.9f, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
                     break;
             }

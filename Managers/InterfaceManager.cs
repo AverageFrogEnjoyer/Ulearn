@@ -25,6 +25,11 @@ namespace _Game_.Managers
         }
         public static void Draw(Player player)
         {
+            Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(fontX - 140, fontY), Color.White);
+            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(fontX - 205, fontY + 45), Color.White);
+
+            if (player.IsDead)
+                return;
             Color color = player.reloading ? Color.Red : Color.White;
             for (var i = 0; i < player.amo; i++)
             {
@@ -36,8 +41,6 @@ namespace _Game_.Managers
                 Vector2 pos = new(i * healthTexture.Width * 0.2f + 32, 32);
                 Globals.SpriteBatch.Draw(healthTexture, pos, null, Color.White * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
             }
-            Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(fontX - 140, fontY), Color.White);
-            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(fontX - 205, fontY + 45), Color.White);
         }
     }
 }

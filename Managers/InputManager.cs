@@ -7,6 +7,14 @@ namespace _Game_.Managers
 {
     public static class InputManager
     {
+        private static KeyboardState keyboardState = Keyboard.GetState();
+        private static MouseState mouseState = Mouse.GetState();
+        private static bool isMovingLeft;
+        private static bool isMovingRight;
+        private static bool isMovingUp;
+        private static bool isMovingDown;
+        private static bool isPauseButtonPressed; 
+
         private static MouseState lastMouseState;
         private static KeyboardState lastKeyboardState;
         private static Vector2 _direction;
@@ -17,41 +25,44 @@ namespace _Game_.Managers
         public static bool MouseLeftDown { get; private set; }
         public static bool PauseIsPressed;
 
-        public static void Update()
+        public static void Update(Player player)
         {
             var keyboardState = Keyboard.GetState();
             var mouseState = Mouse.GetState();
+            
+            isMovingUp = keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W);
+            isMovingDown = keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S);
+            isMovingLeft = keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A);
+            isMovingRight = keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D);
+            isPauseButtonPressed = keyboardState.IsKeyDown(Keys.Space) &&
+            lastKeyboardState.IsKeyUp(Keys.Space) &&
+            Game1.State == GameState.Map1;
 
             _direction = Vector2.Zero;
 
-            if (!Player.IsDead)
+            if (!player.IsDead)
             {
-                if (keyboardState.IsKeyDown(Keys.Left) ||
-                keyboardState.IsKeyDown(Keys.A))
+                if (isMovingLeft)
                 {
                     Player.ChangePositionAndFrame(1);
                     _direction.X--;
                 }
-                if (keyboardState.IsKeyDown(Keys.Right) ||
-                    keyboardState.IsKeyDown(Keys.D))
+                if (isMovingRight)
                 {
                     Player.ChangePositionAndFrame(2);
                     _direction.X++;
                 }
-                if (keyboardState.IsKeyDown(Keys.Up) ||
-                    keyboardState.IsKeyDown(Keys.W))
+                if (isMovingUp)
                 {
                     Player.ChangePositionAndFrame(3);
                     _direction.Y--;
                 }
-                if (keyboardState.IsKeyDown(Keys.Down) ||
-                    keyboardState.IsKeyDown(Keys.S))
+                if (isMovingDown)
                 {
                     Player.ChangePositionAndFrame(0);
                     _direction.Y++;
                 }
-                if (keyboardState.IsKeyDown(Keys.P) &&
-                    lastKeyboardState.IsKeyUp(Keys.P))
+                if (isPauseButtonPressed)
                 {
                     Globals.IsPaused = !Globals.IsPaused;
                 }

@@ -27,12 +27,15 @@ namespace _Game_.Entities
         public int amo { get; set; }
         private float reloadTime;
         public bool reloading { get; set; }
-        public static bool IsDead;
+        public bool IsDead;
         public int Score;
         public int BestScore;
 
         private Vector2 minPos;
         private Vector2 maxPos;
+
+        private static int currentTime = 0;
+        private static int period = 25;
 
         public static void Load() 
         {
@@ -109,11 +112,16 @@ namespace _Game_.Entities
 
         public static void ChangePositionAndFrame(int row)
         {
-            currentFrame.Y = row;
-            ++currentFrame.X;
-            if (currentFrame.X >= spriteSize.X)
+            currentTime += Globals.gameTime.ElapsedGameTime.Milliseconds;
+            if (currentTime > period)
             {
-                currentFrame.X = 1;
+                currentTime -= period;
+                currentFrame.Y = row;
+                ++currentFrame.X;
+                if (currentFrame.X >= spriteSize.X)
+                {
+                    currentFrame.X = 1;
+                }
             }
         }
 
@@ -169,7 +177,7 @@ namespace _Game_.Entities
                     GetExperience(1);
                     continue;
                 }
-                if ((Position - enemy.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 95)
+                if ((Position - enemy.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 85)
                 {
                     IsDead = true;
                     break;
@@ -182,6 +190,10 @@ namespace _Game_.Entities
             if (IsInSwamp(swamps))
             {
                 Health -= 1;
+                if (Health <= 0)
+                {
+                    IsDead = true;
+                }
                 Speed = 150;
             }
             else
