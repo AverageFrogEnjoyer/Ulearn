@@ -18,8 +18,8 @@ namespace _Game_.Entities
 
         private static Point currentFrame;
         private static Point spriteSize;
-        public static int frameWidth = 89/*158*/;
-        public static int frameHeight = 138/*169*/;
+        public int frameWidth;
+        public int frameHeight;
 
         private float cooldown;
         private float cooldownLeft;
@@ -28,13 +28,17 @@ namespace _Game_.Entities
         private float reloadTime;
         public bool reloading { get; set; }
         public static bool IsDead;
-        public static bool HasUlta;
-        public static int Score;
-        public static int BestScore;
+        public int Score;
+        public int BestScore;
 
-        private Vector2 minPos = new(0, 0);
-        private Vector2 maxPos = new(Globals.Bounds.X - 89, Globals.Bounds.Y - 138 );
+        private Vector2 minPos;
+        private Vector2 maxPos;
 
+        public static void Load() 
+        {
+            PlayerSprite = Globals.Content.Load<Texture2D>("Player_new");
+            DeathSprite = Globals.Content.Load<Texture2D>("PlayerDead");
+        }
         public Player(Texture2D tex, Vector2 pos) : base(tex, pos)
         {
             Reset();
@@ -42,28 +46,33 @@ namespace _Game_.Entities
 
         public void Reset()
         {
-            Position = new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10);
+            Position = new(Globals.Bounds.X / 2 - PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - PlayerSprite.Height / 10);
             currentFrame = new Point(0, 0);
             spriteSize = new Point(4, 5);
+            frameWidth = 89;
+            frameHeight = 138;
             cooldown = 0.25f;
             cooldownLeft = 0f;
-            maxAmo = 12;
+            maxAmo = 14;
             amo = maxAmo;
             reloadTime = 2f;
             reloading = false;
             IsDead = false;
-            HasUlta = false;
             BestScore = Score;
-            Score = 0;            
+            Score = 0;
+            minPos = new(0, 0);
+            maxPos = new(Globals.Bounds.X - 89, Globals.Bounds.Y - 138);
             Speed = 450;
-            MaxHealth = 200;
+            MaxHealth = 150;
             Health = MaxHealth;
         }
 
         private void Reload()
         {
             if (reloading)
+            {
                 return;
+            }
             cooldownLeft = reloadTime;
             reloading = true;
             amo = maxAmo;
@@ -82,9 +91,7 @@ namespace _Game_.Entities
             if (InputManager.Direction != Vector2.Zero)
             {
                 var direction = Vector2.Normalize(InputManager.Direction);
-                //if (Position.X + direction.X < Globals.Bounds.X &&
-                //    Position.Y + direction.Y < Globals.Bounds.Y)
-                    Position += direction * Speed * Globals.TotalSeconds;
+                Position += direction * Speed * Globals.TotalSeconds;
                 Position = Vector2.Clamp(Position, minPos, maxPos);
             }
             if (InputManager.MouseLeftDown)
@@ -105,10 +112,12 @@ namespace _Game_.Entities
             currentFrame.Y = row;
             ++currentFrame.X;
             if (currentFrame.X >= spriteSize.X)
+            {
                 currentFrame.X = 1;
+            }
         }
 
-        public void Draw()
+        public override void Draw()
         {
             if (IsDead)
             {
@@ -128,7 +137,9 @@ namespace _Game_.Entities
         private void Shoot()
         {
             if (cooldownLeft > 0 || reloading)
+            {
                 return;
+            }
             amo--;
             if (amo > 0)
             {
@@ -138,17 +149,15 @@ namespace _Game_.Entities
             {
                 Reload();
             }
-
-                BulletData bulletData = new()
-                {
-                    Position = Position + new Vector2(frameWidth / 2, frameHeight / 2),
-                    Rotation = Rotation,
-                    Lifespan = 1,
-                    Speed = 600,
-                    Damage = 1
-                };
-                BulletManager.AddBullet(bulletData);
-            
+            BulletData bulletData = new()
+            {
+                Position = Position + new Vector2(frameWidth / 2, frameHeight / 2),
+                Rotation = Rotation,
+                Lifespan = 1,
+                Speed = 600,
+                Damage = 1
+            };
+            BulletManager.AddBullet(bulletData);            
         }
 
         private void CheckDeath(List<Enemy> enemies)
@@ -160,7 +169,7 @@ namespace _Game_.Entities
                     GetExperience(1);
                     continue;
                 }
-                if ((Position - enemy.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 70)
+                if ((Position - enemy.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 95)
                 {
                     IsDead = true;
                     break;
@@ -170,20 +179,6 @@ namespace _Game_.Entities
 
         private void CheckDrown(List<Swamp> swamps)
         {
-            //foreach (var swamp in swamps)
-            //{
-            //    if ((Position - swamp.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 50)
-            //    {
-            //        Health -= 1;
-            //        Speed = 300;
-            //        if (Health <= 0)
-            //        {
-            //            IsDead = true;
-            //            break;
-            //        }
-            //    }
-
-            //}
             if (IsInSwamp(swamps))
             {
                 Health -= 1;

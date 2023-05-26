@@ -2,13 +2,6 @@
 using Game_;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace _Game_.Managers
@@ -35,7 +28,7 @@ namespace _Game_.Managers
             Color color = player.reloading ? Color.Red : Color.White;
             for (var i = 0; i < player.amo; i++)
             {
-                Vector2 pos = new(i * bulletTexture.Width * 0.75f + 32, 32 + 64);
+                Vector2 pos = new(i * bulletTexture.Width * 0.75f + 32, 96);
                 Globals.SpriteBatch.Draw(bulletTexture, pos, null, color * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
             }
             for (var i = 0; i < player.Health; i++)
@@ -43,8 +36,8 @@ namespace _Game_.Managers
                 Vector2 pos = new(i * healthTexture.Width * 0.2f + 32, 32);
                 Globals.SpriteBatch.Draw(healthTexture, pos, null, Color.White * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
             }
-            Globals.SpriteBatch.DrawString(_score, $"Score: {Player.Score}", new Vector2(fontX - 140, fontY), Color.White);
-            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {Player.BestScore}", new Vector2(fontX - 205, fontY + 45), Color.White);
+            Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(fontX - 140, fontY), Color.White);
+            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(fontX - 205, fontY + 45), Color.White);
         }
     }
 }

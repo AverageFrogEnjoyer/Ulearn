@@ -14,6 +14,5 @@ namespace _Game_.Entities
         {
             Speed = 0;           
         }
-
     }
 }

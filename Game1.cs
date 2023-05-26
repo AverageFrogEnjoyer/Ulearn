@@ -2,22 +2,15 @@
 using _Game_.GameStates;
 using _Game_.Managers;
 using Game_;
-using GameShooter.Entities;
 using GameShooter.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct2D1;
-using static System.Formats.Asn1.AsnWriter;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 
-//Score
-//Exp
-//Bushes to destroy
 //damage power up
 //ulta eve
-//BEST SCORE
 
 namespace _Game_
 {
@@ -61,6 +54,7 @@ namespace _Game_
             EnemyManager.AddEnemy();
             HealthManager.Init();
 
+
             base.Initialize();
         }
 
@@ -68,18 +62,14 @@ namespace _Game_
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = spriteBatch;
+            Player.Load();
+            player = new(Player.PlayerSprite, new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
 
-            
-            //SwampManager.AddSwamp();
-            Player.PlayerSprite = Content.Load<Texture2D>("Player_new");
-            Player.DeathSprite = Content.Load<Texture2D>("PlayerDead");
-
-            Splashscreen.SpriteBack = Content.Load<Texture2D>("Splash");
-            Splashscreen.SpriteText2 = Content.Load<Texture2D>("StartButton");
+            Splashscreen.Load();
             GameOver.Sprite = Content.Load<Texture2D>("End");
             Map1.Sprite = Content.Load<Texture2D>("Grass");
 
-            player = new(Content.Load<Texture2D>("Player"), new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
+            
             
 
             // TODO: use this.Content to load your game content here

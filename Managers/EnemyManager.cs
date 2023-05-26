@@ -69,7 +69,6 @@ namespace _Game_.Managers
                 spawnTime += spawnCooldown;
                 AddEnemy();
             }
-
             foreach (var enemy in Enemies)
             {
                 enemy.Update(player);

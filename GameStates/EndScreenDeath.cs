@@ -14,7 +14,17 @@ namespace _Game_.GameStates
         public static Texture2D Sprite { get; set; }
         public static void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite, new Vector2((Globals.Bounds.X - Sprite.Width) / 2, (Globals.Bounds.Y - Sprite.Height) / 2), null, Color.White * 0.05f, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+            spriteBatch.Draw(
+                Sprite,
+                new Vector2((Globals.Bounds.X - Sprite.Width) / 2,
+                (Globals.Bounds.Y - Sprite.Height) / 2),
+                null,
+                Color.White * 0.05f,
+                0,
+                Vector2.Zero,
+                1,
+                SpriteEffects.None,
+                1);
         }
     }
 }

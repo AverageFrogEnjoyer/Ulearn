@@ -20,7 +20,16 @@ namespace _Game_.GameStates
             {
                 for (var y = 0; y < Globals.Bounds.Y / 32; y++)
                 {
-                    Globals.SpriteBatch.Draw(Sprite, new Vector2(x * 32, y * 32), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                    Globals.SpriteBatch.Draw(
+                        Sprite,
+                        new Vector2(x * 32, y * 32),
+                        null,
+                        Color.White,
+                        0,
+                        Vector2.Zero,
+                        1,
+                        SpriteEffects.None,
+                        0);
                 }
             }
         }

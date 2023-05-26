@@ -23,12 +23,15 @@ namespace _Game_.Entities
         public void GetDamage(int damage)
         {
             HP -= damage;
-            if (HP <= 0) HealthManager.AddHealth(Position);
+            if (HP <= 0)
+            {
+                HealthManager.AddHealth(Position);
+            }
         }
 
         public void Update(Player player)
         {
-            var toPlayer = player.Position - Position + new Vector2(Player.frameWidth / 2, Player.frameHeight / 2);
+            var toPlayer = player.Position - Position + new Vector2(player.frameWidth / 2, player.frameHeight / 2);
             if (HP == 1)
             {
                 Speed = 250;
