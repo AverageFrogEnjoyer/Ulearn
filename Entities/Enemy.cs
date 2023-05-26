@@ -1,4 +1,5 @@
-﻿using Game_;
+﻿using _Game_.Managers;
+using Game_;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -15,13 +16,14 @@ namespace _Game_.Entities
         public int HP { get; set; }
         public Enemy(Texture2D tex, Vector2 pos, int speed) : base(tex, pos)
         {
-            Speed = 150;
+            Speed = 100;
             HP = 3;
         }
 
         public void GetDamage(int damage)
         {
             HP -= damage;
+            if (HP <= 0) HealthManager.AddHealth(Position);
         }
 
         public void Update(Player player)

@@ -12,7 +12,7 @@ namespace _Game_
     public class Sprite
     {
         protected Texture2D texture;
-        protected readonly Vector2 origin;
+        public readonly Vector2 origin;
         public Vector2 Position; /*{ get; set; }*/
         public int Speed { get; set; }
         public float Rotation { get; set; }

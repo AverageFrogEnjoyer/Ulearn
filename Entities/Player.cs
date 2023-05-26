@@ -13,12 +13,13 @@ namespace _Game_.Entities
     {
         public static Texture2D PlayerSprite { get; set; }
         public static Texture2D DeathSprite { get; set; }
+        public int MaxHealth;
         public int Health;
 
         private static Point currentFrame;
         private static Point spriteSize;
-        public static int frameWidth = 158;
-        public static int frameHeight = 169;
+        public static int frameWidth = 89/*158*/;
+        public static int frameHeight = 138/*169*/;
 
         private float cooldown;
         private float cooldownLeft;
@@ -32,7 +33,7 @@ namespace _Game_.Entities
         public static int BestScore;
 
         private Vector2 minPos = new(0, 0);
-        private Vector2 maxPos = new(Globals.Bounds.X - 158, Globals.Bounds.Y - 169 );
+        private Vector2 maxPos = new(Globals.Bounds.X - 89, Globals.Bounds.Y - 138 );
 
         public Player(Texture2D tex, Vector2 pos) : base(tex, pos)
         {
@@ -55,7 +56,8 @@ namespace _Game_.Entities
             BestScore = Score;
             Score = 0;            
             Speed = 450;
-            Health = 200;
+            MaxHealth = 200;
+            Health = MaxHealth;
         }
 
         private void Reload()

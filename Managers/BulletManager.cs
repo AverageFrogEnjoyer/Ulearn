@@ -15,9 +15,9 @@ namespace GameShooter.Managers
         private static Texture2D _texture;
         public static List<Bullet> Bullets { get; } = new();
 
-        public static void Init(Texture2D tex)
+        public static void Init()
         {
-            _texture = tex;
+            _texture = Globals.Content.Load<Texture2D>("Ball");
         }
 
         public static void Reset()

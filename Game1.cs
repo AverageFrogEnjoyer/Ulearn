@@ -53,6 +53,14 @@ namespace _Game_
             Globals.Content = Content;
             Globals.IsPaused = false;
             State = GameState.SplashScreen;
+
+            BulletManager.Init();
+            InterfaceManager.Init();
+            SwampManager.Init();
+            EnemyManager.Init();
+            EnemyManager.AddEnemy();
+            HealthManager.Init();
+
             base.Initialize();
         }
 
@@ -61,12 +69,9 @@ namespace _Game_
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = spriteBatch;
 
-            var bulletTexture = Globals.Content.Load<Texture2D>("Ball");
-            BulletManager.Init(bulletTexture);
-            InterfaceManager.Init();
-            SwampManager.Init();
+            
             //SwampManager.AddSwamp();
-            Player.PlayerSprite = Content.Load<Texture2D>("Player");
+            Player.PlayerSprite = Content.Load<Texture2D>("Player_new");
             Player.DeathSprite = Content.Load<Texture2D>("PlayerDead");
 
             Splashscreen.SpriteBack = Content.Load<Texture2D>("Splash");
@@ -75,8 +80,7 @@ namespace _Game_
             Map1.Sprite = Content.Load<Texture2D>("Grass");
 
             player = new(Content.Load<Texture2D>("Player"), new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
-            EnemyManager.Init();
-            EnemyManager.AddEnemy();
+            
 
             // TODO: use this.Content to load your game content here
         }
@@ -102,6 +106,7 @@ namespace _Game_
                     SwampManager.Update();
                     player.Update(EnemyManager.Enemies, SwampManager.Swamps);
                     EnemyManager.Update(player);
+                    HealthManager.Update(player);
                     if (keyboardState.IsKeyDown(Keys.Enter))
                     {
                         State = GameState.SplashScreen;
@@ -119,6 +124,7 @@ namespace _Game_
             BulletManager.Reset();
             EnemyManager.Reset();
             SwampManager.Reset();
+            HealthManager.Reset();
             player.Reset();
         }
 
@@ -138,6 +144,7 @@ namespace _Game_
                     BulletManager.Draw();
                     SwampManager.Draw();
                     EnemyManager.Draw();
+                    HealthManager.Draw();
                     player.Draw();
                     InterfaceManager.Draw(player);
                     if (Player.IsDead)
