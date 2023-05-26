@@ -12,7 +12,7 @@ namespace _Game_.Entities
     public class Player : Sprite
     {
         public static Texture2D PlayerSprite { get; set; }
-        public static Texture2D DeathSprite { get; set; }
+        private static Texture2D DeathSprite { get; set; }
         public int MaxHealth;
         public int Health;
 
@@ -23,8 +23,8 @@ namespace _Game_.Entities
 
         private float cooldown;
         private float cooldownLeft;
-        private int maxAmo;
-        public int amo { get; set; }
+        private int maxBulletsCount;
+        public int bulletsCount { get; set; }
         private float reloadTime;
         public bool reloading { get; set; }
         public bool IsDead;
@@ -56,8 +56,8 @@ namespace _Game_.Entities
             frameHeight = 138;
             cooldown = 0.25f;
             cooldownLeft = 0f;
-            maxAmo = 14;
-            amo = maxAmo;
+            maxBulletsCount = 14;
+            bulletsCount = maxBulletsCount;
             reloadTime = 2f;
             reloading = false;
             IsDead = false;
@@ -78,7 +78,7 @@ namespace _Game_.Entities
             }
             cooldownLeft = reloadTime;
             reloading = true;
-            amo = maxAmo;
+            bulletsCount = maxBulletsCount;
         }
 
         public void Update(List<Enemy> enemies, List<Swamp> swamps)
@@ -148,8 +148,8 @@ namespace _Game_.Entities
             {
                 return;
             }
-            amo--;
-            if (amo > 0)
+            bulletsCount--;
+            if (bulletsCount > 0)
             {
                 cooldownLeft = cooldown;
             }

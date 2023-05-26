@@ -8,10 +8,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
-
-//damage power up
-//ulta eve
-
 namespace _Game_
 {
     public enum GameState
@@ -22,30 +18,26 @@ namespace _Game_
 
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Player player;
         public static GameState State;
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            //TargetElapsedTime = new System.TimeSpan(0, 0, 0, 0, 60);
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             Globals.Bounds = new(1536, 1024);
-            _graphics.PreferredBackBufferWidth = Globals.Bounds.X;
-            _graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
-            _graphics.ApplyChanges();
-
+            graphics.PreferredBackBufferWidth = Globals.Bounds.X;
+            graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
+            graphics.ApplyChanges();
             Globals.Content = Content;
-            Globals.IsPaused = false;
-            
+            Globals.IsPaused = false;            
             State = GameState.SplashScreen;
 
             BulletManager.Init();
@@ -54,7 +46,6 @@ namespace _Game_
             EnemyManager.Init();
             EnemyManager.AddEnemy();
             HealthManager.Init();
-
 
             base.Initialize();
         }
@@ -65,15 +56,9 @@ namespace _Game_
             Globals.SpriteBatch = spriteBatch;
             Player.Load();
             player = new(Player.PlayerSprite, new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
-
             Splashscreen.Load();
-            GameOver.Sprite = Content.Load<Texture2D>("End");
-            Map1.Sprite = Content.Load<Texture2D>("Grass");
-
-            
-            
-
-            // TODO: use this.Content to load your game content here
+            GameOver.Load();
+            Map1.Load();
         }
 
         protected override void Update(GameTime gameTime)
@@ -106,7 +91,6 @@ namespace _Game_
                     }
                     break;
             }
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -123,8 +107,6 @@ namespace _Game_
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
             switch (State)
             {
@@ -133,16 +115,26 @@ namespace _Game_
                     break;
                 case GameState.Map1:
                     Map1.Draw(spriteBatch);
-                    
                     SwampManager.Draw();
                     HealthManager.Draw();
                     BulletManager.Draw();
                     EnemyManager.Draw();
-                    
                     player.Draw();
                     InterfaceManager.Draw(player);
                     if (player.IsDead)
-                        spriteBatch.Draw(GameOver.Sprite, new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2, (Globals.Bounds.Y - GameOver.Sprite.Height) / 2), null, Color.White * 0.9f, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                    {
+                        spriteBatch.Draw(
+                            GameOver.Sprite,
+                            new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2,
+                            (Globals.Bounds.Y - GameOver.Sprite.Height) / 2),
+                            null,
+                            Color.White * 0.9f,
+                            0,
+                            Vector2.Zero,
+                            1,
+                            SpriteEffects.None,
+                            1);
+                    }
                     break;
             }
             spriteBatch.End();

@@ -31,7 +31,7 @@ namespace _Game_.Managers
             if (player.IsDead)
                 return;
             Color color = player.reloading ? Color.Red : Color.White;
-            for (var i = 0; i < player.amo; i++)
+            for (var i = 0; i < player.bulletsCount; i++)
             {
                 Vector2 pos = new(i * bulletTexture.Width * 0.75f + 32, 96);
                 Globals.SpriteBatch.Draw(bulletTexture, pos, null, color * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
