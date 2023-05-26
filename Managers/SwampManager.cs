@@ -40,7 +40,7 @@ namespace _Game_.Managers
             //    swamp.Update(player);
             //}
             //Enemies.RemoveAll((z) => z.HP <= 0);
-            if (Swamps.Count < 4)
+            if (Swamps.Count < 6)
             {
                 Swamps.Add(new(texture, GetRandomPosition()));
             }
