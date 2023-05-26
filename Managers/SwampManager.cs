@@ -20,7 +20,7 @@ namespace _Game_.Managers
         //private static int padding;
         public static void Init()
         {
-            texture = Globals.Content.Load<Texture2D>("Grass-1");
+            texture = Globals.Content.Load<Texture2D>("Swamp");
             //spawnCooldown = 0.01f;
             //spawnTime = spawnCooldown;
             random = new();

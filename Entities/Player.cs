@@ -31,6 +31,9 @@ namespace _Game_.Entities
         public static int Score;
         public static int BestScore;
 
+        private Vector2 minPos = new(0, 0);
+        private Vector2 maxPos = new(Globals.Bounds.X - 158, Globals.Bounds.Y - 169 );
+
         public Player(Texture2D tex, Vector2 pos) : base(tex, pos)
         {
             Reset();
@@ -77,7 +80,10 @@ namespace _Game_.Entities
             if (InputManager.Direction != Vector2.Zero)
             {
                 var direction = Vector2.Normalize(InputManager.Direction);
-                Position += direction * Speed * Globals.TotalSeconds;
+                //if (Position.X + direction.X < Globals.Bounds.X &&
+                //    Position.Y + direction.Y < Globals.Bounds.Y)
+                    Position += direction * Speed * Globals.TotalSeconds;
+                Position = Vector2.Clamp(Position, minPos, maxPos);
             }
             if (InputManager.MouseLeftDown)
             {

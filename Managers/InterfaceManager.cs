@@ -19,8 +19,8 @@ namespace _Game_.Managers
         private static Texture2D healthTexture;
         private static SpriteFont _score;
         private static SpriteFont _bestScore;
-        private static int fontY = 10;
-        private static int fontX = Globals.Bounds.X / 2 - 50;
+        private static int fontY = 10 ;
+        private static int fontX = Globals.Bounds.X;
 
         public static void Init()
         {
@@ -35,16 +35,16 @@ namespace _Game_.Managers
             Color color = player.reloading ? Color.Red : Color.White;
             for (var i = 0; i < player.amo; i++)
             {
-                Vector2 pos = new(i * bulletTexture.Width * 0.75f + 32, 32);
+                Vector2 pos = new(i * bulletTexture.Width * 0.75f + 32, 32 + 64);
                 Globals.SpriteBatch.Draw(bulletTexture, pos, null, color * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
             }
             for (var i = 0; i < player.Health; i++)
             {
-                Vector2 pos = new(i * healthTexture.Width * 0.2f + 32, 32 + 48);
-                Globals.SpriteBatch.Draw(healthTexture, pos, null, color * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+                Vector2 pos = new(i * healthTexture.Width * 0.2f + 32, 32);
+                Globals.SpriteBatch.Draw(healthTexture, pos, null, Color.White * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
             }
-            Globals.SpriteBatch.DrawString(_score, $"Score: {Player.Score}", new Vector2(fontX, fontY), Color.White);
-            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {Player.BestScore}", new Vector2(fontX - 35, fontY + 45), Color.White);
+            Globals.SpriteBatch.DrawString(_score, $"Score: {Player.Score}", new Vector2(fontX - 140, fontY), Color.White);
+            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {Player.BestScore}", new Vector2(fontX - 205, fontY + 45), Color.White);
         }
     }
 }
