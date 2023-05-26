@@ -50,8 +50,7 @@ namespace _Game_.Entities
             IsDead = false;
             HasUlta = false;
             BestScore = Score;
-            Score = 0;
-            
+            Score = 0;            
             Speed = 450;
             Health = 200;
         }
@@ -163,18 +162,42 @@ namespace _Game_.Entities
 
         private void CheckDrown(List<Swamp> swamps)
         {
+            //foreach (var swamp in swamps)
+            //{
+            //    if ((Position - swamp.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 50)
+            //    {
+            //        Health -= 1;
+            //        Speed = 300;
+            //        if (Health <= 0)
+            //        {
+            //            IsDead = true;
+            //            break;
+            //        }
+            //    }
+
+            //}
+            if (IsInSwamp(swamps))
+            {
+                Health -= 1;
+                Speed = 150;
+            }
+            else
+            {
+                Speed = 450;
+            }
+        }
+
+        private bool IsInSwamp(List<Swamp> swamps)
+        {
+            var result = false;
             foreach (var swamp in swamps)
             {
                 if ((Position - swamp.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 50)
                 {
-                    Health -= 1;
-                    if (Health <= 0)
-                    {
-                        IsDead = true;
-                        break;
-                    }
+                    result = true;
                 }
             }
+            return result;
         }
 
         public void GetExperience(int exp)

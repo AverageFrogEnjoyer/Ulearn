@@ -16,6 +16,7 @@ namespace _Game_.Managers
     public class InterfaceManager
     {
         private static Texture2D bulletTexture;
+        private static Texture2D healthTexture;
         private static SpriteFont _score;
         private static SpriteFont _bestScore;
         private static int fontY = 10;
@@ -26,6 +27,8 @@ namespace _Game_.Managers
             bulletTexture = Globals.Content.Load<Texture2D>("Ball");
             _score = Globals.Content.Load<SpriteFont>("Score");
             _bestScore = Globals.Content.Load<SpriteFont>("Score");
+            healthTexture = Globals.Content.Load<Texture2D>("HealthBar");
+
         }
         public static void Draw(Player player)
         {
@@ -34,6 +37,11 @@ namespace _Game_.Managers
             {
                 Vector2 pos = new(i * bulletTexture.Width * 0.75f + 32, 32);
                 Globals.SpriteBatch.Draw(bulletTexture, pos, null, color * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+            }
+            for (var i = 0; i < player.Health; i++)
+            {
+                Vector2 pos = new(i * healthTexture.Width * 0.2f + 32, 32 + 48);
+                Globals.SpriteBatch.Draw(healthTexture, pos, null, color * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
             }
             Globals.SpriteBatch.DrawString(_score, $"Score: {Player.Score}", new Vector2(fontX, fontY), Color.White);
             Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {Player.BestScore}", new Vector2(fontX - 35, fontY + 45), Color.White);
