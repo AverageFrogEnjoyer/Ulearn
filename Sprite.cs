@@ -1,11 +1,6 @@
 ﻿using Game_;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _Game_
 {
@@ -13,11 +8,9 @@ namespace _Game_
     {
         protected Texture2D texture;
         public readonly Vector2 origin;
-        public Vector2 Position; /*{ get; set; }*/
+        public Vector2 Position;
         public int Speed { get; set; }
         public float Rotation { get; set; }
-        //public float Scale { get; set; }
-        //public Color Color { get; set; }
 
         public Sprite(Texture2D tex, Vector2 pos)
         {
@@ -25,12 +18,11 @@ namespace _Game_
             Position = pos;
             origin = new(tex.Width / 2, tex.Height / 2);
             Speed = 300;
-            //Color = Color.White;
         }
 
         public virtual void Draw()
         {
-            Globals.SpriteBatch.Draw(texture, Position, null, Color.White, Rotation, origin, 1/*Scale*/, SpriteEffects.None, 1);
+            Globals.SpriteBatch.Draw(texture, Position, null, Color.White, Rotation, origin, 1, SpriteEffects.None, 1);
         }
     }
 }

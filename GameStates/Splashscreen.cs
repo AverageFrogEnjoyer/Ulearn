@@ -12,7 +12,7 @@ namespace _Game_.GameStates
         public static void Load()
         {
             SpriteBack = Globals.Content.Load<Texture2D>("Splash");
-            SpriteText = Globals.Content.Load<Texture2D>("StartButton");
+            SpriteText = Globals.Content.Load<Texture2D>("StartButton3");
         }
 
         public static void Draw(SpriteBatch spriteBatch)

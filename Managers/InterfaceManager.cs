@@ -25,21 +25,39 @@ namespace _Game_.Managers
         }
         public static void Draw(Player player)
         {
-            Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(fontX - 140, fontY), Color.White);
-            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(fontX - 205, fontY + 45), Color.White);
+            Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(Globals.Bounds.X / 2 - 40/*fontX - 140*/, 32/*fontY*/), Color.White);
+            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(Globals.Bounds.X / 2 - 70/*fontX - 205*/, 74/*fontY + 45*/), Color.White);
 
-            if (player.IsDead)
-                return;
+            //if (player.IsDead)
+            //    return;
             Color color = player.reloading ? Color.Red : Color.White;
             for (var i = 0; i < player.bulletsCount; i++)
             {
                 Vector2 pos = new(i * bulletTexture.Width * 0.75f + 32, 96);
-                Globals.SpriteBatch.Draw(bulletTexture, pos, null, color * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+                Globals.SpriteBatch.Draw(
+                    bulletTexture,
+                    pos,
+                    null,
+                    color * 0.75f,
+                    0,
+                    Vector2.Zero,
+                    0.75f,
+                    SpriteEffects.None,
+                    1);
             }
             for (var i = 0; i < player.Health; i++)
             {
                 Vector2 pos = new(i * healthTexture.Width * 0.2f + 32, 32);
-                Globals.SpriteBatch.Draw(healthTexture, pos, null, Color.White * 0.75f, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+                Globals.SpriteBatch.Draw(
+                    healthTexture,
+                    pos,
+                    null,
+                    Color.White * 0.75f,
+                    0,
+                    Vector2.Zero,
+                    0.75f,
+                    SpriteEffects.None,
+                    1);
             }
         }
     }

@@ -5,7 +5,6 @@ using GameShooter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System;
 
 namespace _Game_.Entities
 {
@@ -35,7 +34,7 @@ namespace _Game_.Entities
         private Vector2 maxPos;
 
         private static int currentTime = 0;
-        private static int period = 25;
+        private static int period = 18;
 
         public static void Load() 
         {
@@ -112,6 +111,8 @@ namespace _Game_.Entities
 
         public static void ChangePositionAndFrame(int row)
         {
+            if (Globals.IsPaused)
+                return;
             currentTime += Globals.gameTime.ElapsedGameTime.Milliseconds;
             if (currentTime > period)
             {
