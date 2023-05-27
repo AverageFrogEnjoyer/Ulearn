@@ -178,7 +178,7 @@ namespace _Game_.Entities
                     GetExperience(1);
                     continue;
                 }
-                if ((Position - enemy.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 85)
+                if ((Position - enemy.Position + new Vector2(frameWidth / 2, frameHeight / 2)).Length() < 75)
                 {
                     IsDead = true;
                     break;
