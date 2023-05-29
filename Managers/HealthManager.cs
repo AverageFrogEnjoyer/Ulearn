@@ -39,13 +39,14 @@ namespace _Game_.Managers
                 if ((health.Position - player.Position - new Vector2(player.frameWidth / 2, player.frameHeight / 2)).Length() < 40)
                 {
                     health.Collect();
-                    if (player.Health + 20 > player.MaxHealth)
+                    if (player.Health + 30 > player.MaxHealth)
                     {
                         player.Health = player.MaxHealth;
+
                     }
                     else
                     {
-                        player.Health += 20;
+                        player.Health += 30;
                     }
                 }
             }

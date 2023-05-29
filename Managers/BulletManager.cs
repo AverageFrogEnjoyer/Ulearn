@@ -37,7 +37,7 @@ namespace GameShooter.Managers
                     {
                         continue;
                     }
-                    if ((bullet.Position - enemy.Position).Length() < 32)
+                    if ((bullet.Position - enemy.Position).Length() < 50)
                     {
                         enemy.GetDamage(bullet.Damage);
                         bullet.Destroy();

@@ -52,7 +52,7 @@ namespace _Game_.Managers
         {
             if (Enemies.Count < 4)
             {
-                speed += 4;
+                speed += 5;
                 Enemies.Add(new(texture, GetRandomPosition(), speed));
             }
         }
