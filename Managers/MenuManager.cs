@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace _Game_.GameStates
+namespace _Game_.Managers
 {
-    public class Splashscreen
+    public class MenuManager
     {
         public static Texture2D SpriteBack { get; set; }
         public static Texture2D SpriteText { get; set; }

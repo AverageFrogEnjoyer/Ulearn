@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace _Game_.GameStates
+namespace _Game_.Managers
 {
-    public class Map1
+    public class MapManager
     {
         public static Texture2D Sprite { get; set; }
         public static void Load()
@@ -30,7 +30,5 @@ namespace _Game_.GameStates
                 }
             }
         }
-
-
     }
 }

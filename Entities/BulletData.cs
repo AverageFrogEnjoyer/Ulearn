@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace GameShooter
+namespace _Game_.Entities
 {
     public class BulletData
     {

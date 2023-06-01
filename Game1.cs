@@ -1,5 +1,4 @@
 ﻿using _Game_.Entities;
-using _Game_.GameStates;
 using _Game_.Managers;
 using Game_;
 using GameShooter.Managers;
@@ -20,8 +19,9 @@ namespace _Game_
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Player player;
+        //private Player player;
         public static GameState State;
+
 
         public Game1()
         {
@@ -36,10 +36,12 @@ namespace _Game_
             graphics.PreferredBackBufferWidth = Globals.Bounds.X;
             graphics.PreferredBackBufferHeight = Globals.Bounds.Y;
             graphics.ApplyChanges();
+
             Globals.Content = Content;
             Globals.IsPaused = false;            
             State = GameState.SplashScreen;
 
+            PlayerManager.Init();
             BulletManager.Init();
             InterfaceManager.Init();
             SwampManager.Init();
@@ -54,11 +56,11 @@ namespace _Game_
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = spriteBatch;
-            Player.Load();
-            player = new(Player.PlayerSprite, new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
-            Splashscreen.Load();
-            GameOver.Load();
-            Map1.Load();
+            //Player.Load();
+            //player = new(Player.PlayerSprite, new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
+            MenuManager.Load();
+            GameOverManager.Load();
+            MapManager.Load();
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,7 +70,7 @@ namespace _Game_
                 Exit();
             Globals.gameTime = gameTime;
             Globals.Update();
-            InputManager.Update(player);
+            InputManager.Update(/*player*/);
 
             switch (State)
             {
@@ -79,11 +81,12 @@ namespace _Game_
                 case GameState.Map1:
                     if (Globals.IsPaused)
                         break;
+                    PlayerManager.Update();
                     BulletManager.Update(EnemyManager.Enemies);
                     SwampManager.Update();
-                    player.Update(EnemyManager.Enemies, SwampManager.Swamps);
-                    EnemyManager.Update(player);
-                    HealthManager.Update(player);
+                    //player.Update(EnemyManager.Enemies, SwampManager.Swamps);
+                    EnemyManager.Update(/*player*/);
+                    HealthManager.Update(/*player*/);
                     if (keyboardState.IsKeyDown(Keys.Enter))
                     {
                         State = GameState.SplashScreen;
@@ -101,7 +104,8 @@ namespace _Game_
             EnemyManager.Reset();
             SwampManager.Reset();
             HealthManager.Reset();
-            player.Reset();
+            //player.Reset();
+            PlayerManager.Reset();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -111,29 +115,20 @@ namespace _Game_
             switch (State)
             {
                 case GameState.SplashScreen:
-                    Splashscreen.Draw(spriteBatch);
+                    MenuManager.Draw(spriteBatch);
                     break;
                 case GameState.Map1:
-                    Map1.Draw(spriteBatch);
+                    MapManager.Draw(spriteBatch);
                     SwampManager.Draw();
                     HealthManager.Draw();
                     BulletManager.Draw();
                     EnemyManager.Draw();
-                    player.Draw();
-                    InterfaceManager.Draw(player);
-                    if (player.IsDead)
+                    //player.Draw();
+                    PlayerManager.Draw();
+                    InterfaceManager.Draw(/*player*/);
+                    if (PlayerManager.player.IsDead)
                     {
-                        spriteBatch.Draw(
-                            GameOver.Sprite,
-                            new Vector2((Globals.Bounds.X - GameOver.Sprite.Width) / 2,
-                            (Globals.Bounds.Y - GameOver.Sprite.Height) / 2),
-                            null,
-                            Color.White * 0.9f,
-                            0,
-                            Vector2.Zero,
-                            1,
-                            SpriteEffects.None,
-                            1);
+                        GameOverManager.Draw();
                     }
                     break;
             }

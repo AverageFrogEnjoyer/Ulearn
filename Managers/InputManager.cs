@@ -25,7 +25,7 @@ namespace _Game_.Managers
         public static bool MouseLeftDown { get; private set; }
         public static bool PauseIsPressed;
 
-        public static void Update(Player player)
+        public static void Update(/*Player player*/)
         {
             var keyboardState = Keyboard.GetState();
             var mouseState = Mouse.GetState();
@@ -40,26 +40,26 @@ namespace _Game_.Managers
 
             _direction = Vector2.Zero;
 
-            if (!player.IsDead)
+            if (!PlayerManager.player.IsDead)
             {
                 if (isMovingLeft)
                 {
-                    Player.ChangePositionAndFrame(1);
+                    PlayerManager.ChangePositionAndFrame(1);
                     _direction.X--;
                 }
                 if (isMovingRight)
                 {
-                    Player.ChangePositionAndFrame(2);
+                    PlayerManager.ChangePositionAndFrame(2);
                     _direction.X++;
                 }
                 if (isMovingUp)
                 {
-                    Player.ChangePositionAndFrame(3);
+                    PlayerManager.ChangePositionAndFrame(3);
                     _direction.Y--;
                 }
                 if (isMovingDown)
                 {
-                    Player.ChangePositionAndFrame(0);
+                    PlayerManager.ChangePositionAndFrame(0);
                     _direction.Y++;
                 }
                 if (isPauseButtonPressed)

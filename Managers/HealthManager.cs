@@ -31,8 +31,9 @@ namespace _Game_.Managers
             }
         }
 
-        public static void Update(Player player)
+        public static void Update(/*Player player*/)
         {
+            var player = PlayerManager.player;
             foreach (var health in HealthBoost)
             {
                 health.Update();

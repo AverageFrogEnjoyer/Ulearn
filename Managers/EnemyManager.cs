@@ -24,6 +24,7 @@ namespace _Game_.Managers
             spawnTime = spawnCooldown;
             random = new();
             padding = texture.Width / 2;
+            AddEnemy();
         }
         public static void Reset()
         {
@@ -57,7 +58,7 @@ namespace _Game_.Managers
             }
         }
 
-        public static void Update(Player player)
+        public static void Update(/*Player player*/)
         {
             spawnTime -= Globals.TotalSeconds;
             while (spawnTime <= 0)
@@ -67,10 +68,16 @@ namespace _Game_.Managers
             }
             foreach (var enemy in Enemies)
             {
-                enemy.Update(player);
+                enemy.Update(PlayerManager.player);
+            }
+            foreach(var enemy in Enemies)
+            {
+                if (enemy.HP <= 0)
+                    PlayerManager.player.Score++;
             }
             Enemies.RemoveAll((z) => z.HP <= 0);
         }
+
 
         public static void Draw()
         {

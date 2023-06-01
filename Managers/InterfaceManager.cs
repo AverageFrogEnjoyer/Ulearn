@@ -23,8 +23,9 @@ namespace _Game_.Managers
             healthTexture = Globals.Content.Load<Texture2D>("HealthBar");
 
         }
-        public static void Draw(Player player)
+        public static void Draw(/*Player player*/)
         {
+            var player = PlayerManager.player;
             Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(Globals.Bounds.X / 2 - 40/*fontX - 140*/, 32/*fontY*/), Color.White);
             Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(Globals.Bounds.X / 2 - 70/*fontX - 205*/, 74/*fontY + 45*/), Color.White);
 
