@@ -1,5 +1,4 @@
-﻿using Game_;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _Game_.Entities

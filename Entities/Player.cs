@@ -1,5 +1,4 @@
 ﻿using _Game_.Managers;
-using Game_;
 using GameShooter.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,13 +8,9 @@ namespace _Game_.Entities
 {
     public class Player : Sprite
     {
-        //public static Texture2D PlayerSprite { get; set; }
-        //private static Texture2D DeathSprite { get; set; }
         public int MaxHealth;
         public int Health;
 
-        //private static Point currentFrame;
-        //private static Point spriteSize;
         public int frameWidth;
         public int frameHeight;
 
@@ -32,14 +27,6 @@ namespace _Game_.Entities
         private Vector2 minPos;
         private Vector2 maxPos;
 
-        //private static int currentTime = 0;
-        //private static int period = 18;
-
-        //public static void Load()
-        //{
-        //    PlayerSprite = Globals.Content.Load<Texture2D>("Player_new");
-        //    DeathSprite = Globals.Content.Load<Texture2D>("PlayerDead");
-        //}
         public Player(Texture2D tex, Vector2 pos) : base(tex, pos)
         {
             Reset();
@@ -47,9 +34,6 @@ namespace _Game_.Entities
 
         public void Reset()
         {
-            Position = new(Globals.Bounds.X / 2 - PlayerManager.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - PlayerManager.PlayerSprite.Height / 10);
-            //currentFrame = new Point(0, 0);
-            //spriteSize = new Point(4, 5);
             frameWidth = 89;
             frameHeight = 138;
             cooldown = 0.25f;
@@ -79,9 +63,8 @@ namespace _Game_.Entities
             bulletsCount = maxBulletsCount;
         }
 
-        public void Update(/*List<Enemy> enemies, List<Swamp> swamps*/)
+        public void Update()
         {
-            //Score++;
             if (cooldownLeft > 0)
             {
                 cooldownLeft -= Globals.TotalSeconds;
@@ -108,40 +91,6 @@ namespace _Game_.Entities
             CheckDeath(EnemyManager.Enemies);
             
         }
-
-        //public static void ChangePositionAndFrame(int row)
-        //{
-        //    if (Globals.IsPaused)
-        //        return;
-        //    currentTime += Globals.gameTime.ElapsedGameTime.Milliseconds;
-        //    if (currentTime > period)
-        //    {
-        //        currentTime -= period;
-        //        currentFrame.Y = row;
-        //        ++currentFrame.X;
-        //        if (currentFrame.X >= spriteSize.X)
-        //        {
-        //            currentFrame.X = 1;
-        //        }
-        //    }
-        //}
-
-        //public override void Draw()
-        //{
-        //    if (IsDead)
-        //    {
-        //        Globals.SpriteBatch.Draw(DeathSprite, Position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
-        //    }
-        //    else
-        //    {
-        //        Globals.SpriteBatch.Draw(PlayerSprite, Position,
-        //        new Rectangle(currentFrame.X * frameWidth,
-        //            currentFrame.Y * frameHeight,
-        //            frameWidth, frameHeight),
-        //        Color.White, 0, Vector2.Zero,
-        //        1, SpriteEffects.None, 0);
-        //    }
-        //}
 
         private void Shoot()
         {

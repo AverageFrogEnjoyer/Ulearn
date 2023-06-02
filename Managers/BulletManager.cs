@@ -1,6 +1,5 @@
 ﻿using _Game_.Entities;
 using _Game_.Managers;
-using Game_;
 using GameShooter.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;

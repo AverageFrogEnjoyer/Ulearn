@@ -1,5 +1,4 @@
 ﻿using _Game_.Entities;
-using Game_;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -58,7 +57,7 @@ namespace _Game_.Managers
             }
         }
 
-        public static void Update(/*Player player*/)
+        public static void Update()
         {
             spawnTime -= Globals.TotalSeconds;
             while (spawnTime <= 0)

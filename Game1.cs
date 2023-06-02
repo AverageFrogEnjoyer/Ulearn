@@ -1,29 +1,27 @@
-﻿using _Game_.Entities;
+﻿using _Game_.Controllers;
+using _Game_.Entities;
 using _Game_.Managers;
-using Game_;
-using GameShooter.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 
-//экземпляры классов
 namespace _Game_
 {
     public enum GameState
     {
-        SplashScreen,
-        Map1,
+        Menu,
+        Game,
     }
 
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        public static GameState State;
-
-        //private InputManager inputManager = new();
+        public GameState State;
+        public MenuController MenuController;
+        public GameController GameController;
 
         public Game1()
         {
@@ -40,15 +38,10 @@ namespace _Game_
             graphics.ApplyChanges();
 
             Globals.Content = Content;
-            Globals.IsPaused = false;            
-            State = GameState.SplashScreen;
+            State = GameState.Menu;
 
-            PlayerManager.Init();
-            BulletManager.Init();
-            InterfaceManager.Init();
-            SwampManager.Init();
-            EnemyManager.Init();
-            HealthManager.Init();
+            MenuController = new(this);
+            GameController = new(this);
 
             base.Initialize();
         }
@@ -58,9 +51,8 @@ namespace _Game_
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = spriteBatch;
 
-            MenuManager.Load();
-            GameOverManager.Load();
-            MapManager.Load();
+            MenuController.Load();
+            GameController.Load();
         }
 
         protected override void Update(GameTime gameTime)
@@ -74,65 +66,32 @@ namespace _Game_
 
             switch (State)
             {
-                case GameState.SplashScreen:
-                    if (InputManager.IsStartButtonPressed)
-                    {
-                        State = GameState.Map1;
-                    }
+                case GameState.Menu:
+                    MenuController.Update();
                     break;
-                case GameState.Map1:
-                    if (Globals.IsPaused)
-                    {
-                        break;                        
-                    }
-                    PlayerManager.Update();
-                    BulletManager.Update();
-                    SwampManager.Update();
-                    EnemyManager.Update();
-                    HealthManager.Update();
-                    if (InputManager.IsEnterPressed)
-                    {
-                        State = GameState.SplashScreen;
-                        Restart();
-                    }
+                case GameState.Game:
+                    GameController.Update();
                     break;
             }
 
             base.Update(gameTime);
         }
 
-        private void Restart()
-        {
-            BulletManager.Reset();
-            EnemyManager.Reset();
-            SwampManager.Reset();
-            HealthManager.Reset();
-            PlayerManager.Reset();
-        }
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+
             switch (State)
             {
-                case GameState.SplashScreen:
-                    MenuManager.Draw(spriteBatch);
+                case GameState.Menu:
+                    MenuController.Draw();
                     break;
-                case GameState.Map1:
-                    MapManager.Draw(spriteBatch);
-                    SwampManager.Draw();
-                    HealthManager.Draw();
-                    BulletManager.Draw();
-                    EnemyManager.Draw();
-                    PlayerManager.Draw();
-                    InterfaceManager.Draw();
-                    if (PlayerManager.player.IsDead)
-                    {
-                        GameOverManager.Draw();
-                    }
+                case GameState.Game:
+                    GameController.Draw();
                     break;
             }
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

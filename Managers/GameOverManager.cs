@@ -1,12 +1,12 @@
-﻿using Game_;
+﻿using _Game_.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace _Game_.Managers
 {
-    public class GameOverManager
+    public static class GameOverManager
     {
-        public static Texture2D Sprite { get; set; }
+        public static Texture2D Sprite;
         public static void Load()
         {
             Sprite = Globals.Content.Load<Texture2D>("End");

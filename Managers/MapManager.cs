@@ -1,4 +1,4 @@
-﻿using Game_;
+﻿using _Game_.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,7 +11,7 @@ namespace _Game_.Managers
         {
             Sprite = Globals.Content.Load<Texture2D>("Grass");
         }
-        public static void Draw(SpriteBatch spriteBatch)
+        public static void Draw()
         {
             for (var x = 0; x < Globals.Bounds.X / 32; x++)
             {
