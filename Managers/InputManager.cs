@@ -7,8 +7,6 @@ namespace _Game_.Managers
 {
     public static class InputManager
     {
-        private static KeyboardState keyboardState = Keyboard.GetState();
-        private static MouseState mouseState = Mouse.GetState();
         private static bool isMovingLeft;
         private static bool isMovingRight;
         private static bool isMovingUp;
@@ -24,8 +22,10 @@ namespace _Game_.Managers
         public static bool MouseRightClicked { get; private set; }
         public static bool MouseLeftDown { get; private set; }
         public static bool PauseIsPressed;
+        public static bool IsEnterPressed { get; private set; }
+        public static bool IsStartButtonPressed { get; private set; }
 
-        public static void Update(/*Player player*/)
+        public static void Update()
         {
             var keyboardState = Keyboard.GetState();
             var mouseState = Mouse.GetState();
@@ -35,9 +35,12 @@ namespace _Game_.Managers
             isMovingLeft = keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A);
             isMovingRight = keyboardState.IsKeyDown(Keys.Right) || keyboardState.IsKeyDown(Keys.D);
             isPauseButtonPressed = keyboardState.IsKeyDown(Keys.Space) &&
-            lastKeyboardState.IsKeyUp(Keys.Space) &&
-            Game1.State == GameState.Map1;
-
+                                   lastKeyboardState.IsKeyUp(Keys.Space) &&
+                                   Game1.State == GameState.Map1;
+            IsEnterPressed = keyboardState.IsKeyDown(Keys.Enter) &&
+                             lastKeyboardState.IsKeyUp(Keys.Enter);
+            IsStartButtonPressed = keyboardState.IsKeyDown(Keys.Space) &&
+                                   lastKeyboardState.IsKeyUp(Keys.Space);
             _direction = Vector2.Zero;
 
             if (!PlayerManager.player.IsDead)

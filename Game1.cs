@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
+
+//экземпляры классов
 namespace _Game_
 {
     public enum GameState
@@ -19,9 +21,9 @@ namespace _Game_
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        //private Player player;
         public static GameState State;
 
+        //private InputManager inputManager = new();
 
         public Game1()
         {
@@ -46,7 +48,6 @@ namespace _Game_
             InterfaceManager.Init();
             SwampManager.Init();
             EnemyManager.Init();
-            EnemyManager.AddEnemy();
             HealthManager.Init();
 
             base.Initialize();
@@ -56,8 +57,7 @@ namespace _Game_
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = spriteBatch;
-            //Player.Load();
-            //player = new(Player.PlayerSprite, new(Globals.Bounds.X / 2 - Player.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - Player.PlayerSprite.Height / 10));
+
             MenuManager.Load();
             GameOverManager.Load();
             MapManager.Load();
@@ -70,24 +70,27 @@ namespace _Game_
                 Exit();
             Globals.gameTime = gameTime;
             Globals.Update();
-            InputManager.Update(/*player*/);
+            InputManager.Update();
 
             switch (State)
             {
                 case GameState.SplashScreen:
-                    if (keyboardState.IsKeyDown(Keys.Space))
+                    if (InputManager.IsStartButtonPressed)
+                    {
                         State = GameState.Map1;
+                    }
                     break;
                 case GameState.Map1:
                     if (Globals.IsPaused)
-                        break;
+                    {
+                        break;                        
+                    }
                     PlayerManager.Update();
-                    BulletManager.Update(EnemyManager.Enemies);
+                    BulletManager.Update();
                     SwampManager.Update();
-                    //player.Update(EnemyManager.Enemies, SwampManager.Swamps);
-                    EnemyManager.Update(/*player*/);
-                    HealthManager.Update(/*player*/);
-                    if (keyboardState.IsKeyDown(Keys.Enter))
+                    EnemyManager.Update();
+                    HealthManager.Update();
+                    if (InputManager.IsEnterPressed)
                     {
                         State = GameState.SplashScreen;
                         Restart();
@@ -104,7 +107,6 @@ namespace _Game_
             EnemyManager.Reset();
             SwampManager.Reset();
             HealthManager.Reset();
-            //player.Reset();
             PlayerManager.Reset();
         }
 
@@ -123,9 +125,8 @@ namespace _Game_
                     HealthManager.Draw();
                     BulletManager.Draw();
                     EnemyManager.Draw();
-                    //player.Draw();
                     PlayerManager.Draw();
-                    InterfaceManager.Draw(/*player*/);
+                    InterfaceManager.Draw();
                     if (PlayerManager.player.IsDead)
                     {
                         GameOverManager.Draw();

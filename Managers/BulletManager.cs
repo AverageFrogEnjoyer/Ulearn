@@ -1,4 +1,5 @@
 ﻿using _Game_.Entities;
+using _Game_.Managers;
 using Game_;
 using GameShooter.Entities;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,8 +27,9 @@ namespace GameShooter.Managers
             Bullets.Add(new(_texture, data));
         }
 
-        public static void Update(List<Enemy> enemies)
+        public static void Update()
         {
+            var enemies = EnemyManager.Enemies;
             foreach (var bullet in Bullets)
             {
                 bullet.Update();
