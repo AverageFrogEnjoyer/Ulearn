@@ -2,13 +2,6 @@
 using _Game_.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace _Game_.Controllers
 {
@@ -22,18 +15,16 @@ namespace _Game_.Controllers
         public MenuController(Game1 game)
         {
             this.game = game;
-            PlayerManager.Init();
+            PlayerView.Init();
         }
 
         public void Update()
         {
-            if (InputManager.IsStartButtonPressed)
+            if (InputView.IsStartButtonPressed)
             {
                 var gameController = new GameController(game);
-                //var gameOverController = new GameOverController(game);
                 game.State = GameState.Game;
                 game.GameController = gameController;
-                //game.GameOverController = gameOverController;
             }
         }
 
@@ -42,7 +33,7 @@ namespace _Game_.Controllers
             SpriteBack = Globals.Content.Load<Texture2D>("Splash");
             SpriteText = Globals.Content.Load<Texture2D>("StartButton3");
             Manual = Globals.Content.Load<Texture2D>("Rules");
-            MapManager.Load();
+            MapView.Load();
         }
 
         public void Draw()

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace GameShooter.Managers
 {
-    public class BulletManager
+    public class BulletView
     {
         private static Texture2D _texture;
         public static List<Bullet> Bullets { get; } = new();
@@ -28,7 +28,7 @@ namespace GameShooter.Managers
 
         public static void Update()
         {
-            var enemies = EnemyManager.Enemies;
+            var enemies = EnemyView.Enemies;
             foreach (var bullet in Bullets)
             {
                 bullet.Update();

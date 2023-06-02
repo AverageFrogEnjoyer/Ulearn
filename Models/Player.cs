@@ -34,6 +34,7 @@ namespace _Game_.Entities
 
         public void Reset()
         {
+            
             frameWidth = 89;
             frameHeight = 138;
             cooldown = 0.25f;
@@ -73,22 +74,22 @@ namespace _Game_.Entities
             {
                 reloading = false;
             }
-            if (InputManager.Direction != Vector2.Zero)
+            if (InputView.Direction != Vector2.Zero)
             {
-                var direction = Vector2.Normalize(InputManager.Direction);
+                var direction = Vector2.Normalize(InputView.Direction);
                 Position += direction * Speed * Globals.TotalSeconds;
                 Position = Vector2.Clamp(Position, minPos, maxPos);
             }
-            if (InputManager.MouseLeftDown)
+            if (InputView.MouseLeftDown)
             {
                 Shoot();
             }
-            if (InputManager.MouseRightClicked)
+            if (InputView.MouseRightClicked)
             {
                 Reload();
             }
-            CheckDrown(SwampManager.Swamps);
-            CheckDeath(EnemyManager.Enemies);
+            CheckDrown(SwampView.Swamps);
+            CheckDeath(EnemyView.Enemies);
             
         }
 
@@ -115,7 +116,7 @@ namespace _Game_.Entities
                 Speed = 650,
                 Damage = 1
             };
-            BulletManager.AddBullet(bulletData);            
+            BulletView.AddBullet(bulletData);            
         }
 
         private void CheckDeath(List<Enemy> enemies)

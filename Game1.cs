@@ -62,7 +62,7 @@ namespace _Game_
                 Exit();
             Globals.gameTime = gameTime;
             Globals.Update();
-            InputManager.Update();
+            InputView.Update();
 
             switch (State)
             {

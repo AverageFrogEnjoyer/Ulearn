@@ -7,7 +7,6 @@ namespace _Game_.Entities
 {
     public static class Globals
     {
-        public static Game1 game;
         public static bool IsPaused = false;
         public static float TotalSeconds { get; set; }
         public static ContentManager Content { get; set; }

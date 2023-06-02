@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _Game_.Managers
 {
-    public class PlayerManager
+    public class PlayerView
     {
         public static Player player;
         public static Texture2D PlayerSprite { get; set; }
@@ -21,13 +21,14 @@ namespace _Game_.Managers
         {
             PlayerSprite = Globals.Content.Load<Texture2D>("Player_new");
             DeathSprite = Globals.Content.Load<Texture2D>("PlayerDead");
-            player = new(PlayerSprite, new(Globals.Bounds.X / 2 - PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - PlayerSprite.Height / 10));
+            Position = new(Globals.Bounds.X / 2 - PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - PlayerSprite.Height / 10);
+            player = new(PlayerSprite, Position);
         }
         public static void Reset()
         {
             currentFrame = new Point(0, 0);
             spriteSize = new Point(4, 5);
-            Position = new(Globals.Bounds.X / 2 - PlayerManager.PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - PlayerManager.PlayerSprite.Height / 10);
+            player.Position = new(Globals.Bounds.X / 2 - PlayerSprite.Width / 8, Globals.Bounds.Y / 2 - PlayerSprite.Height / 10);
             player.Reset();
         }
 

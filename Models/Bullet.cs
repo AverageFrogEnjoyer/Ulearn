@@ -15,7 +15,7 @@ namespace GameShooter.Entities
         public Bullet(Texture2D tex, BulletData data) : base(tex, data.Position)
         {
             Speed = data.Speed;
-            var toMouse = InputManager.MousePosition - Position;
+            var toMouse = InputView.MousePosition - Position;
             Rotation = (float)Math.Atan2(toMouse.Y, toMouse.X);
             Direction = new((float)Math.Cos(Rotation), (float)Math.Sin(Rotation));
             Lifespan = data.Lifespan;

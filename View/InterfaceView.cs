@@ -5,14 +5,12 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace _Game_.Managers
 {
-    public class InterfaceManager
+    public class InterfaceView
     {
         private static Texture2D bulletTexture;
         private static Texture2D healthTexture;
         private static SpriteFont _score;
         private static SpriteFont _bestScore;
-        private static int fontY = 10 ;
-        private static int fontX = Globals.Bounds.X;
 
         public static void Init()
         {
@@ -24,9 +22,9 @@ namespace _Game_.Managers
         }
         public static void Draw()
         {
-            var player = PlayerManager.player;
-            Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(Globals.Bounds.X / 2 - 40/*fontX - 140*/, 32/*fontY*/), Color.White);
-            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(Globals.Bounds.X / 2 - 70/*fontX - 205*/, 74/*fontY + 45*/), Color.White);
+            var player = PlayerView.player;
+            Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(Globals.Bounds.X / 2 - 40, 32), Color.White);
+            Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(Globals.Bounds.X / 2 - 70, 74), Color.White);
 
             Color color = player.reloading ? Color.Red : Color.White;
             for (var i = 0; i < player.bulletsCount; i++)

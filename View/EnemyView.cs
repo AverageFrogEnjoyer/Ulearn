@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace _Game_.Managers
 {
-    public class EnemyManager
+    public class EnemyView
     {
         public static List<Enemy> Enemies = new();
         private static Texture2D texture;
@@ -14,7 +14,7 @@ namespace _Game_.Managers
         private static float spawnTime;
         private static Random random;
         private static int padding;
-        public static int speed = 150;
+        public static int speed;
 
         public static void Init()
         {
@@ -23,11 +23,14 @@ namespace _Game_.Managers
             spawnTime = spawnCooldown;
             random = new();
             padding = texture.Width / 2;
+            speed = 150;
+            
             AddEnemy();
         }
         public static void Reset()
         {
             Enemies.Clear();
+            speed = 150;
             spawnTime = spawnCooldown;
         }
 
@@ -52,7 +55,7 @@ namespace _Game_.Managers
         {
             if (Enemies.Count < 4)
             {
-                speed += 5;
+                speed += 3;
                 Enemies.Add(new(texture, GetRandomPosition(), speed));
             }
         }
@@ -67,16 +70,15 @@ namespace _Game_.Managers
             }
             foreach (var enemy in Enemies)
             {
-                enemy.Update(PlayerManager.player);
+                enemy.Update(PlayerView.player);
             }
             foreach(var enemy in Enemies)
             {
                 if (enemy.HP <= 0)
-                    PlayerManager.player.Score++;
+                    PlayerView.player.Score++;
             }
             Enemies.RemoveAll((z) => z.HP <= 0);
         }
-
 
         public static void Draw()
         {

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _Game_.Managers
 {
-    public class MapManager
+    public class MapView
     {
         public static Texture2D Sprite { get; set; }
         public static void Load()

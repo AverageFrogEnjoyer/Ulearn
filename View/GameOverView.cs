@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _Game_.Managers
 {
-    public static class GameOverManager
+    public static class GameOverView
     {
         public static Texture2D Sprite;
         public static void Load()

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace _Game_.Managers
 {
-    public static class InputManager
+    public static class InputView
     {
         private static bool isMovingLeft;
         private static bool isMovingRight;
@@ -41,26 +41,26 @@ namespace _Game_.Managers
                                    lastKeyboardState.IsKeyUp(Keys.Space);
             _direction = Vector2.Zero;
 
-            if (!PlayerManager.player.IsDead)
+            if (!PlayerView.player.IsDead)
             {
                 if (isMovingLeft)
                 {
-                    PlayerManager.ChangePositionAndFrame(1);
+                    PlayerView.ChangePositionAndFrame(1);
                     _direction.X--;
                 }
                 if (isMovingRight)
                 {
-                    PlayerManager.ChangePositionAndFrame(2);
+                    PlayerView.ChangePositionAndFrame(2);
                     _direction.X++;
                 }
                 if (isMovingUp)
                 {
-                    PlayerManager.ChangePositionAndFrame(3);
+                    PlayerView.ChangePositionAndFrame(3);
                     _direction.Y--;
                 }
                 if (isMovingDown)
                 {
-                    PlayerManager.ChangePositionAndFrame(0);
+                    PlayerView.ChangePositionAndFrame(0);
                     _direction.Y++;
                 }
                 if (isPauseButtonPressed)
