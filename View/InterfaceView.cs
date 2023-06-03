@@ -22,7 +22,7 @@ namespace _Game_.Managers
         }
         public static void Draw()
         {
-            var player = PlayerView.player;
+            var player = PlayerManager.player;
             Globals.SpriteBatch.DrawString(_score, $"Score: {player.Score}", new Vector2(Globals.Bounds.X / 2 - 40, 32), Color.White);
             Globals.SpriteBatch.DrawString(_bestScore, $"Best Score: {player.BestScore}", new Vector2(Globals.Bounds.X / 2 - 70, 74), Color.White);
 

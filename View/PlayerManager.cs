@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _Game_.Managers
 {
-    public class PlayerView
+    public class PlayerManager
     {
         public static Player player;
         public static Texture2D PlayerSprite { get; set; }

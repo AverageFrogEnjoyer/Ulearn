@@ -42,26 +42,26 @@ namespace _Game_.Controllers
                                    lastKeyboardState.IsKeyUp(Keys.Space);
             _direction = Vector2.Zero;
 
-            if (!PlayerView.player.IsDead)
+            if (!PlayerManager.player.IsDead)
             {
                 if (isMovingLeft)
                 {
-                    PlayerView.ChangePositionAndFrame(1);
+                    PlayerManager.ChangePositionAndFrame(1);
                     _direction.X--;
                 }
                 if (isMovingRight)
                 {
-                    PlayerView.ChangePositionAndFrame(2);
+                    PlayerManager.ChangePositionAndFrame(2);
                     _direction.X++;
                 }
                 if (isMovingUp)
                 {
-                    PlayerView.ChangePositionAndFrame(3);
+                    PlayerManager.ChangePositionAndFrame(3);
                     _direction.Y--;
                 }
                 if (isMovingDown)
                 {
-                    PlayerView.ChangePositionAndFrame(0);
+                    PlayerManager.ChangePositionAndFrame(0);
                     _direction.Y++;
                 }
                 if (isPauseButtonPressed)

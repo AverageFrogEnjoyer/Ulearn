@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace _Game_.Managers
 {
-    public class EnemyView
+    public class EnemyManager
     {
         public static List<Enemy> Enemies = new();
         private static Texture2D texture;
@@ -70,12 +70,12 @@ namespace _Game_.Managers
             }
             foreach (var enemy in Enemies)
             {
-                enemy.Update(PlayerView.player);
+                enemy.Update(PlayerManager.player);
             }
             foreach(var enemy in Enemies)
             {
                 if (enemy.HP <= 0)
-                    PlayerView.player.Score++;
+                    PlayerManager.player.Score++;
             }
             Enemies.RemoveAll((z) => z.HP <= 0);
         }

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace _Game_.Managers
 {
-    public class SwampView
+    public class SwampManager
     {
         public static List<Swamp> Swamps = new();
         private static Texture2D texture;

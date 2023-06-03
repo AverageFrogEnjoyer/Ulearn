@@ -89,8 +89,8 @@ namespace _Game_.Entities
             {
                 Reload();
             }
-            CheckDrown(SwampView.Swamps);
-            CheckDeath(EnemyView.Enemies);
+            CheckDrown(SwampManager.Swamps);
+            CheckDeath(EnemyManager.Enemies);
             
         }
 
@@ -117,7 +117,7 @@ namespace _Game_.Entities
                 Speed = 650,
                 Damage = 1
             };
-            BulletView.AddBullet(bulletData);            
+            BulletManager.AddBullet(bulletData);            
         }
 
         private void CheckDeath(List<Enemy> enemies)

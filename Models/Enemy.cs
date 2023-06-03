@@ -18,7 +18,7 @@ namespace _Game_.Entities
             HP -= damage;
             if (HP <= 0)
             {
-                HealthView.AddHealth(Position);
+                HealthManager.AddHealth(Position);
             }
         }
 

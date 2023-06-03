@@ -11,11 +11,11 @@ namespace _Game_.Controllers
         public GameController(Game1 game)
         {
             this.game = game;
-            BulletView.Init();
+            BulletManager.Init();
             InterfaceView.Init();
-            SwampView.Init();
-            EnemyView.Init();
-            HealthView.Init();
+            SwampManager.Init();
+            EnemyManager.Init();
+            HealthManager.Init();
             Globals.IsPaused = false;
         }
 
@@ -30,11 +30,11 @@ namespace _Game_.Controllers
             {
                 return;
             }
-            PlayerView.Update();
-            BulletView.Update();
-            SwampView.Update();
-            EnemyView.Update();
-            HealthView.Update();
+            PlayerManager.Update();
+            BulletManager.Update();
+            SwampManager.Update();
+            EnemyManager.Update();
+            HealthManager.Update();
             if (InputController.IsEnterPressed)
             {
                 game.State = GameState.Menu;
@@ -45,13 +45,13 @@ namespace _Game_.Controllers
         public void Draw()
         {
             MapView.Draw();
-            SwampView.Draw();
-            HealthView.Draw();
-            BulletView.Draw();
-            EnemyView.Draw();
-            PlayerView.Draw();
+            SwampManager.Draw();
+            HealthManager.Draw();
+            BulletManager.Draw();
+            EnemyManager.Draw();
+            PlayerManager.Draw();
             InterfaceView.Draw();
-            if (PlayerView.player.IsDead)
+            if (PlayerManager.player.IsDead)
             {
                 GameOverView.Draw();
             }
@@ -59,11 +59,11 @@ namespace _Game_.Controllers
 
         private void Restart()
         {
-            BulletView.Reset();
-            EnemyView.Reset();
-            SwampView.Reset();
-            HealthView.Reset();
-            PlayerView.Reset();
+            BulletManager.Reset();
+            EnemyManager.Reset();
+            SwampManager.Reset();
+            HealthManager.Reset();
+            PlayerManager.Reset();
         }
     }
 }

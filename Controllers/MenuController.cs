@@ -15,7 +15,7 @@ namespace _Game_.Controllers
         public MenuController(Game1 game)
         {
             this.game = game;
-            PlayerView.Init();
+            PlayerManager.Init();
         }
 
         public void Update()

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace _Game_.Managers
 {
-    public class HealthView
+    public class HealthManager
     {
         private static Texture2D _texture;
         public static List<Health> HealthBoost { get; } = new();
@@ -32,7 +32,7 @@ namespace _Game_.Managers
 
         public static void Update()
         {
-            var player = PlayerView.player;
+            var player = PlayerManager.player;
             foreach (var health in HealthBoost)
             {
                 health.Update();
