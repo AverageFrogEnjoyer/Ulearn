@@ -57,12 +57,11 @@ namespace _Game_
 
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState keyboardState = Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             Globals.gameTime = gameTime;
             Globals.Update();
-            InputView.Update();
+            InputController.Update();
 
             switch (State)
             {

@@ -35,7 +35,7 @@ namespace _Game_.Controllers
             SwampView.Update();
             EnemyView.Update();
             HealthView.Update();
-            if (InputView.IsEnterPressed)
+            if (InputController.IsEnterPressed)
             {
                 game.State = GameState.Menu;
                 Restart();

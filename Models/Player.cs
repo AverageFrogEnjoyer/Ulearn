@@ -1,4 +1,5 @@
-﻿using _Game_.Managers;
+﻿using _Game_.Controllers;
+using _Game_.Managers;
 using GameShooter.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -74,17 +75,17 @@ namespace _Game_.Entities
             {
                 reloading = false;
             }
-            if (InputView.Direction != Vector2.Zero)
+            if (InputController.Direction != Vector2.Zero)
             {
-                var direction = Vector2.Normalize(InputView.Direction);
+                var direction = Vector2.Normalize(InputController.Direction);
                 Position += direction * Speed * Globals.TotalSeconds;
                 Position = Vector2.Clamp(Position, minPos, maxPos);
             }
-            if (InputView.MouseLeftDown)
+            if (InputController.MouseLeftDown)
             {
                 Shoot();
             }
-            if (InputView.MouseRightClicked)
+            if (InputController.MouseRightClicked)
             {
                 Reload();
             }

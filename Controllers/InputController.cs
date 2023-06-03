@@ -1,16 +1,17 @@
 ﻿using _Game_.Entities;
+using _Game_.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace _Game_.Managers
+namespace _Game_.Controllers
 {
-    public static class InputView
+    public static class InputController
     {
         private static bool isMovingLeft;
         private static bool isMovingRight;
         private static bool isMovingUp;
         private static bool isMovingDown;
-        private static bool isPauseButtonPressed; 
+        private static bool isPauseButtonPressed;
 
         private static MouseState lastMouseState;
         private static KeyboardState lastKeyboardState;
@@ -28,7 +29,7 @@ namespace _Game_.Managers
         {
             var keyboardState = Keyboard.GetState();
             var mouseState = Mouse.GetState();
-            
+
             isMovingUp = keyboardState.IsKeyDown(Keys.Up) || keyboardState.IsKeyDown(Keys.W);
             isMovingDown = keyboardState.IsKeyDown(Keys.Down) || keyboardState.IsKeyDown(Keys.S);
             isMovingLeft = keyboardState.IsKeyDown(Keys.Left) || keyboardState.IsKeyDown(Keys.A);
@@ -70,9 +71,9 @@ namespace _Game_.Managers
             }
 
             MouseLeftDown = mouseState.LeftButton == ButtonState.Pressed;
-            MouseClicked = MouseLeftDown && (lastMouseState.LeftButton == ButtonState.Released);
+            MouseClicked = MouseLeftDown && lastMouseState.LeftButton == ButtonState.Released;
             MouseRightClicked = mouseState.RightButton == ButtonState.Pressed
-                                && (lastMouseState.RightButton == ButtonState.Released);
+                                && lastMouseState.RightButton == ButtonState.Released;
 
             lastMouseState = Mouse.GetState();
             lastKeyboardState = Keyboard.GetState();

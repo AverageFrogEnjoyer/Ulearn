@@ -1,4 +1,5 @@
-﻿using _Game_.Entities;
+﻿using _Game_.Controllers;
+using _Game_.Entities;
 using _Game_.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +16,7 @@ namespace GameShooter.Entities
         public Bullet(Texture2D tex, BulletData data) : base(tex, data.Position)
         {
             Speed = data.Speed;
-            var toMouse = InputView.MousePosition - Position;
+            var toMouse = InputController.MousePosition - Position;
             Rotation = (float)Math.Atan2(toMouse.Y, toMouse.X);
             Direction = new((float)Math.Cos(Rotation), (float)Math.Sin(Rotation));
             Lifespan = data.Lifespan;

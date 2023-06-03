@@ -20,7 +20,7 @@ namespace _Game_.Controllers
 
         public void Update()
         {
-            if (InputView.IsStartButtonPressed)
+            if (InputController.IsStartButtonPressed)
             {
                 var gameController = new GameController(game);
                 game.State = GameState.Game;
