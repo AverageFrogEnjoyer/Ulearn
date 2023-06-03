@@ -12,7 +12,6 @@ namespace _Game_.Controllers
         {
             this.game = game;
             BulletManager.Init();
-            InterfaceView.Init();
             SwampManager.Init();
             EnemyManager.Init();
             HealthManager.Init();
@@ -22,6 +21,7 @@ namespace _Game_.Controllers
         public void Load()
         {
             GameOverView.Load();
+            InterfaceView.Load();
         }
 
         public void Update()

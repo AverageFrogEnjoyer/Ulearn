@@ -12,7 +12,7 @@ namespace _Game_.Managers
         private static SpriteFont _score;
         private static SpriteFont _bestScore;
 
-        public static void Init()
+        public static void Load()
         {
             bulletTexture = Globals.Content.Load<Texture2D>("Ball");
             _score = Globals.Content.Load<SpriteFont>("Score");
